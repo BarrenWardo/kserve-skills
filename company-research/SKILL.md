@@ -55,14 +55,13 @@ Detect your execution mode before starting. Apply it consistently throughout.
 
 Use **SEQUENTIAL** only when: (a) subagent tools are confirmed unavailable on the platform, or (b) the user explicitly requests sequential mode. If unsure whether tools are available, attempt tool detection — default to SEQUENTIAL only if detection fails.
 
-**Auto-upgrade detection.** Before starting any research run, test whether subagent tools (`Task`, `spawn_agent`, or platform equivalent) are available. If they are available and SEQUENTIAL was assumed or defaulted to, offer the user a choice before proceeding:
+**Auto-start detection.** Before starting any research run, test whether subagent tools (`Task`, `spawn_agent`, or platform equivalent) are available. If they are available, announce and immediately start PARALLEL mode — no confirmation required:
 
 ```
-⚡ Parallel mode available. I can run 19 research workers across 3 waves (~3× faster).
-Continue in SEQUENTIAL (current), or switch to PARALLEL?
+⚡ Parallel mode detected — running 19 workers across 3 waves (~3× faster).
 ```
 
-Wait for confirmation. Never auto-switch without user confirmation. If the user doesn't respond or declines, continue in SEQUENTIAL.
+Then proceed directly to spawning Wave 1 and posting the progress status board. Do not wait for user input.
 
 **PARALLEL:** Spawn in three waves after user confirms.
 
