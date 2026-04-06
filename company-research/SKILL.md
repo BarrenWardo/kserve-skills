@@ -63,7 +63,7 @@ Use **SEQUENTIAL** only when: (a) subagent tools are confirmed unavailable on th
 
 Then proceed directly to spawning Wave 1 and posting the progress status board. Do not wait for user input.
 
-**PARALLEL:** Spawn in three waves after user confirms.
+**PARALLEL:** Announce mode and spawn in three waves immediately upon tool detection.
 
 **Wave 1 — spawn simultaneously (15 independent workers):** Steps 2, 3, 4, 5, 6, 7, 7B, 7C, 8, 11, 12, 13, 14, 16, 17. Each Worker runs its own Checker loop independently.
 
