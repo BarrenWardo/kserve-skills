@@ -53,7 +53,7 @@ Detect your execution mode before starting. Apply it consistently throughout.
 | **PARALLEL** | You can spawn independent subagents that run simultaneously | Claude Code (`Task` tool) · OpenCode (`Task`) · Codex agent (`spawn_agent`) · Any multi-agent platform |
 | **SEQUENTIAL** | Single-thread only — one step at a time | Claude.ai · Claude Desktop (MCP) · Cowork · Codex chat · Cursor · VS Code Agent · Cline · Continue.dev · Windsurf · Any single-thread assistant |
 
-If unsure, default to **SEQUENTIAL** — it is always safe, just slower.
+Use **SEQUENTIAL** only when: (a) subagent tools are confirmed unavailable on the platform, or (b) the user explicitly requests sequential mode. If unsure whether tools are available, attempt tool detection — default to SEQUENTIAL only if detection fails.
 
 **Auto-upgrade detection.** Before starting any research run, test whether subagent tools (`Task`, `spawn_agent`, or platform equivalent) are available. If they are available and SEQUENTIAL was assumed or defaulted to, offer the user a choice before proceeding:
 
