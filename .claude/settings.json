@@ -1,0 +1,21 @@
+{
+  "enabledPlugins": {
+    "superpowers@superpowers-marketplace": true,
+    "claude-mem@thedotmack": true,
+    "ecc@ecc": true
+  },
+  "permissions": {
+    "deny": [
+      "Bash(rm -rf /*)",
+      "Bash(sudo *)",
+      "Bash(curl * | bash)",
+      "Bash(wget * | bash)",
+      "Bash(chmod 777 *)",
+      "Bash(dd *)",
+      "Bash(mkfs *)",
+      "Bash(> /etc/*)",
+      "Bash(ssh *)",
+      "Bash(> /dev/*)"
+    ]
+  }
+}
