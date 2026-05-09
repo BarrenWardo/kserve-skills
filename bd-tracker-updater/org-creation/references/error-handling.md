@@ -50,7 +50,7 @@ If all 3 retries fail:
 ❌ Could not reach BD Tracker after 3 attempts.
 Error: [error detail]
 
-Endpoint: https://n8n.kserve.dpdns.org/webhook/f50d69d1-edac-461b-8db3-0d8c81930e60
+Endpoint: $BD_Tracker_Base_URL$BD_Tracker_Endpoint
 
 Options:
   1. Retry again
