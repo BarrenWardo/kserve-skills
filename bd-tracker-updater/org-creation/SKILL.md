@@ -80,6 +80,10 @@ After required fields are collected, ask once for optional fields:
 > - Tracxn rating (number only — e.g. 4.5)
 > - Acquisitions (short pointers — e.g. Acquired by Reliance 2023)"
 
+After the user responds:
+- Map any provided values to their API fields
+- Set every optional field the user did **not** provide to `"NA"` — no optional field may be absent or blank in the payload
+
 Hardcode: `formType` = `"Company"`, `bdName` = `"VBDE"`, `websiteExist` = `"Yes"`.
 
 ---
