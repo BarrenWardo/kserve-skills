@@ -72,6 +72,8 @@ When extracting from a company-research report output, map sections to API field
 | Branch count / office locations count | `numberOfCompanyBranches` | |
 | Product or service reviews | `Review` | Summarise in 1–2 sentences |
 | Star ratings / Google ratings | `rating` | Summarise in 1–2 sentences |
+| KServe services to pitch / recommended services section | `services` | Comma-separated service names |
+| Customer care / support / helpline number | `customerCareNumber` | Phone number as-is |
 | Social media section | `socialMedia` | Format: "Platform - XK Followers" |
 | Tracxn data | `Tracxn` | Number only |
 | Acquisitions / funding / partnerships section | `acquisitions` | Short pointers |
