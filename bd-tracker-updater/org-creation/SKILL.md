@@ -119,7 +119,7 @@ Submit? (yes / no / correct [field name])
 ```
 
 - **yes** → validate then submit (Step 4)
-- **no** → cancel
+- **no** → respond "Understood. Submission cancelled — nothing was sent to the BD Tracker. Let me know if you'd like to resubmit." Then stop.
 - **correct [field name]** → ask for corrected value, update summary, re-display
 
 ---

@@ -10,15 +10,21 @@ Parse the JSON response. Extract `Org_id` and confirm to the user:
 Organisation ID: [Org_id]
 ```
 
-The `Org_id` confirms the record was created in the system.
+If `Org_id` is absent from the response, warn the user:
+
+```
+⚠️ BD Tracker returned HTTP 200 but no Organisation ID in the response.
+Response received: [response body]
+The record may still have been created — please verify manually in the BD Tracker.
+```
 
 ## Error (HTTP 300 or non-200)
 
 **Auto-retry up to 3 times** before surfacing the error to the user.
 
-- Retry 1: resubmit immediately
-- Retry 2: resubmit after retry 1 fails
-- Retry 3: resubmit after retry 2 fails
+- Retry 1: wait 1 second, then resubmit
+- Retry 2: wait 3 seconds, then resubmit
+- Retry 3: wait 9 seconds, then resubmit
 
 If all 3 retries fail, report to the user:
 
@@ -58,4 +64,9 @@ Options:
 ```
 
 If user chooses **Show payload**: display the full JSON payload and stop.
-If user chooses **Retry again**: attempt 3 more times, same pattern.
+If user chooses **Retry again**: attempt 3 more times, same pattern. If this second round also fails, do not offer "Retry again" — instead respond:
+
+```
+❌ BD Tracker is still unreachable after multiple attempts.
+The service may be temporarily unavailable. Please try again later or contact support.
+```
