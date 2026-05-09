@@ -11,13 +11,13 @@ Must have real data. Cannot be `"NA"`. Validate before submitting.
 | `bdName` | String | BD Manager name | Always `"VBDE"` — hardcoded, never ask user |
 | `formType` | String | Form type | Always `"Company"` — hardcoded, never ask user |
 | `websiteExist` | String | Whether company has website | Always `"Yes"` — hardcoded (website is always mandatory) |
-| `website` | String | Company website | **Mandatory — cannot be empty or NA.** Main domain only — strip `https://`, `http://`, `www.`. Example: `"kserve.co.in"` not `"https://www.kserve.co.in"` |
-| `turnover` | Decimal | Annual revenue | Latest year's figure. Numbers only in Crore (INR). Strip any "Cr" / "crore" / "₹" text. Example: `2.5` not `"2.5 Cr"` |
+| `website` | String | Company website | **Mandatory — cannot be empty or NA.** Main domain only — strip `https://`, `http://`, `www.`, any path (`/about`, `/products`), and trailing slashes. Preserve subdomains (e.g. `api.example.com` stays as-is). Example: `"kserve.co.in"` not `"https://www.kserve.co.in/about"` |
+| `turnover` | Decimal | Annual revenue | Latest year's figure. Numbers only in Crore (INR). Strip any "Cr" / "crore" / "₹" text. Submit as a JSON number, not a string — e.g. `2.5` not `"2.5"`. |
 | `location` | String | Company's primary location | Format: `"City, Country"`. Example: `"Mumbai, India"`, `"Pune, India"` |
 
 ## Approved LOB List
 
-Use exactly as written. Case-sensitive.
+Accept case-insensitive input and normalize to the exact casing above before submitting (e.g. "bfsi" → `BFSI`, "manufacturing" → `Manufacturing`).
 
 ```
 BFSI

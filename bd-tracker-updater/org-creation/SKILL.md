@@ -33,20 +33,20 @@ Before proceeding, read the field definitions:
 
 ## Step 1: Detect Input Mode
 
-Scan the current conversation context:
+Scan the current conversation context using this priority order:
 
-| Mode | Detection Signal | Action |
-|---|---|---|
-| **Research report** | Structured sections present — company name, turnover, directors, location from a company-research output | Extract fields from report → Step 2A |
-| **Raw data** | User provided unstructured company details in their message | Extract fields from message → Step 2A |
-| **No data** | User only said a trigger phrase with no company details | Ask field-by-field → Step 2B |
+1. **Research report** — structured sections present with 3+ of: company name, turnover, directors, location from a company-research output → Step 2A
+2. **Raw data** — user provided 2+ company details in their message (unstructured) → Step 2A
+3. **No data** (fallback) — trigger phrase only, no company details → Step 2B
+
+If ambiguous (e.g. company name alone with no other details): ask — "Did you share a company research report, or should I collect details step by step?"
 
 ---
 
 ## Step 2A: Extract (Research Report or Raw Data)
 
 1. Extract 15 fields from context (3 are hardcoded — do not extract `formType`, `bdName`, `websiteExist`)
-2. Map extracted values to API field names (see `references/fields.md` — Extraction Mapping table)
+2. Map extracted values to API field names (see `references/fields.md` — Extraction Mapping table). If the report has conflicting values for the same field (e.g. two turnover figures), use the most recent year's figure; for location, use the head office or registered address. Note any ambiguity in the pre-submit summary.
 3. Hardcode these fields — never extract or ask user:
    - `formType` = `"Company"`
    - `bdName` = `"VBDE"`
@@ -62,7 +62,7 @@ Scan the current conversation context:
 Ask in this order — one question at a time, wait for each answer:
 
 1. "What is the company name?"
-2. "What is the line of business? Choose from the approved list or propose a new one if nothing fits." *(show approved LOB list from `references/fields.md`)*
+2. "What is the line of business? Choose from the approved list below." *(show approved LOB list from `references/fields.md`)* — If user proposes a new LOB not in the list, respond: "You've proposed '[proposed LOB]'. I'll only use this with your confirmation — proceed? (yes / choose from list instead)". Continue only after explicit confirmation.
 3. "What is the company's website? (main domain only — e.g. kserve.co.in)"
 4. "What is the company's latest annual turnover? (Crore, numbers only — e.g. 2.5)"
 5. "Where is the company based? (City, Country — e.g. Mumbai, India)"
@@ -86,7 +86,6 @@ After the user responds:
 - If user provides some details: extract and map those values; set any optional field not mentioned to `"NA"`
 - No optional field may be absent or blank in the payload
 
-Hardcode: `formType` = `"Company"`, `bdName` = `"VBDE"`, `websiteExist` = `"Yes"`.
 
 ---
 
@@ -95,27 +94,27 @@ Hardcode: `formType` = `"Company"`, `bdName` = `"VBDE"`, `websiteExist` = `"Yes"
 Display before submitting:
 
 ```
-Here's what I'll submit to the BD Tracker:
+Here's what I'll submit to the BD Tracker (* = required, cannot be NA):
 
-| Field             | Value             |
-|-------------------|-------------------|
-| Company Name      | [companyName]     |
-| Line of Business  | [lob]             |
-| BD Manager        | VBDE              |
-| Website           | [website]         |
-| Turnover (Cr)     | [turnover]        |
-| Location          | [location]        |
-| Year in Existence | [yearInExistence] |
-| Directors         | [nameOfDirectors] |
-| Branches          | [numberOfCompanyBranches] |
-| Review            | [Review]          |
-| Rating            | [rating]          |
-| Services          | [services]        |
-| Customer Care No. | [customerCareNumber] |
-| Social Media      | [socialMedia]     |
-| Tracxn            | [Tracxn]          |
-| Acquisitions      | [acquisitions]    |
-| Form Type         | Company           |
+| Field               | Value                     |
+|---------------------|---------------------------|
+| Company Name *      | [companyName]             |
+| Line of Business *  | [lob]                     |
+| BD Manager          | VBDE                      |
+| Website *           | [website]                 |
+| Turnover (Cr) *     | [turnover]                |
+| Location *          | [location]                |
+| Year in Existence   | [yearInExistence]         |
+| Directors           | [nameOfDirectors]         |
+| Branches            | [numberOfCompanyBranches] |
+| Review              | [Review]                  |
+| Rating              | [rating]                  |
+| Services            | [services]                |
+| Customer Care No.   | [customerCareNumber]      |
+| Social Media        | [socialMedia]             |
+| Tracxn              | [Tracxn]                  |
+| Acquisitions        | [acquisitions]            |
+| Form Type           | Company                   |
 
 Submit? (yes / no / correct [field name])
 ```
