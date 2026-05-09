@@ -7,48 +7,71 @@ Must have real data. Cannot be `"NA"`. Validate before submitting.
 | Field | Type | Description | Validation Rule |
 |---|---|---|---|
 | `companyName` | String | Company name | Non-empty string |
-| `lob` | String | Line of business | Non-empty. Examples: "NBFC", "BFSI", "Insurance", "eCommerce", "EdTech", "Automobile", "Healthcare", "Fintech", "Real Estate" |
-| `bdName` | String | BD Manager's full name | Non-empty string |
+| `lob` | String | Line of business | Must match approved LOB list (see below). Create new only if company fits nothing in list AND absolutely necessary — confirm new LOB with user before using. |
+| `bdName` | String | BD Manager name | Always `"VBDE"` — hardcoded, never ask user |
 | `formType` | String | Form type | Always `"Company"` — hardcoded, never ask user |
-| `websiteExist` | String | Whether company has a website | Must be `"Yes"` or `"No"`. Normalize on input: accept yes/no/YES/NO, always submit as `"Yes"` or `"No"` |
-| `website` | String | Company website URL | Required (non-empty) when `websiteExist` = `"Yes"`. Set to `"NA"` when `websiteExist` = `"No"` |
-| `turnover` | Decimal | Annual revenue in Crore | Must parse as a positive number. Examples: `10.3`, `233`, `0.5`. Strip any "Cr" / "crore" text before storing |
-| `location` | String | Company's primary city | Non-empty string. Examples: "Mumbai", "Delhi", "Pune", "Thane" |
+| `websiteExist` | String | Whether company has website | Always `"Yes"` — hardcoded (website is always mandatory) |
+| `website` | String | Company website | **Mandatory — cannot be empty or NA.** Main domain only — strip `https://`, `http://`, `www.`. Example: `"kserve.co.in"` not `"https://www.kserve.co.in"` |
+| `turnover` | Decimal | Annual revenue | Latest year's figure. Numbers only in Crore (INR). Strip any "Cr" / "crore" / "₹" text. Example: `2.5` not `"2.5 Cr"` |
+| `location` | String | Company's primary location | Format: `"City, Country"`. Example: `"Mumbai, India"`, `"Pune, India"` |
+
+## Approved LOB List
+
+Use exactly as written. Case-sensitive.
+
+```
+BFSI
+Manufacturing
+Edutech
+FMCG
+Real Estate
+Entertainment
+Healthcare
+Ecommerce
+Retail
+Data Services
+Pest Management
+Technology
+Hospitality
+Fintech
+NBFC
+```
+
+**New LOB rule:** Only propose a new LOB if the company genuinely does not fit any item in the list AND it is absolutely necessary. Present the proposed new LOB to the user and get explicit confirmation before using it.
 
 ## Optional Fields
 
 Submit as `"NA"` if not available. Never leave blank — always include in payload.
 
-| Field | Type | Description | Example Value |
+| Field | Type | Description | Format |
 |---|---|---|---|
-| `yearInExistence` | String | Years since company established | `"23"`, `"5"`, `"40"` |
+| `yearInExistence` | String | Years since established | Numbers only. Example: `"12"`, `"5"`, `"40"` |
 | `nameOfDirectors` | String | Director names, comma-separated | `"JD Mam, Rakesh Shetty"` |
 | `numberOfCompanyBranches` | String | Total branch count | `"3"`, `"12"`, `"50+"` |
-| `Review` | String | Company or product review text | `"Product quality is excellent"` |
-| `rating` | String | Rating with platform context | `"4.5 on Google"`, `"3.8 on Glassdoor"` |
+| `Review` | String | Overall company review | 1–2 sentences summarising company quality, market reputation, or notable strengths/weaknesses |
+| `rating` | String | Overall product/service rating | 1–2 sentences describing rating and context. Example: `"Rated 4.2 on Google with strong customer satisfaction feedback"` |
 | `services` | String | KServe services to pitch | `"Customer Service, AI Bot"`, `"Lead Generation"` |
 | `customerCareNumber` | String | Company's customer care number | `"1800-260000"` |
-| `socialMedia` | String | Social media presence summary | `"50M followers on Instagram"` |
-| `Tracxn` | String | Tracxn platform rating | `"Tracxn rating 4.5"` |
-| `acquisitions` | String | Acquisition or major investment info | `"Acquired by Reliance 2023"`, `"No"` |
+| `socialMedia` | String | Social media presence | Format: `"Platform - Follower count"`, comma-separated. Example: `"Instagram - 10K Followers, Linkedin - 5K Followers"` |
+| `Tracxn` | String | Tracxn platform rating | Number only. Example: `"4.5"` not `"4.5/5"` or `"Tracxn rating 4.5"` |
+| `acquisitions` | String | Acquisition or partnership info | Short pointers, comma-separated. Example: `"Acquired by Reliance 2023, Partnered with Jio 2025"`. Use `"NA"` if none. |
 
 ## Extraction Mapping (Research Report → API Field)
 
 When extracting from a company-research report output, map sections to API fields:
 
-| Research Report Section | API Field |
-|---|---|
-| Company name / report header | `companyName` |
-| Industry / sector / vertical | `lob` |
-| Website URL present | `websiteExist` = `"Yes"` + populate `website` |
-| No website found | `websiteExist` = `"No"` + `website` = `"NA"` |
-| Turnover / revenue figures | `turnover` (extract numeric value in Crore) |
-| City / head office / registered address | `location` |
-| Year founded / MCA incorporation year | `yearInExistence` |
-| Directors / board members | `nameOfDirectors` |
-| Branch count / office locations count | `numberOfCompanyBranches` |
-| Product or service reviews | `Review` |
-| Star ratings / Google ratings | `rating` |
-| Social media section | `socialMedia` |
-| Tracxn data | `Tracxn` |
-| Acquisitions / funding section | `acquisitions` |
+| Research Report Section | API Field | Notes |
+|---|---|---|
+| Company name / report header | `companyName` | |
+| Industry / sector / vertical | `lob` | Match to approved LOB list |
+| Website URL | `website` | Extract main domain only |
+| Turnover / revenue figures | `turnover` | Latest year, numeric in Crore only |
+| City / head office / registered address | `location` | Format as "City, Country" |
+| Year founded / MCA incorporation year | `yearInExistence` | Numbers only |
+| Directors / board members | `nameOfDirectors` | |
+| Branch count / office locations count | `numberOfCompanyBranches` | |
+| Product or service reviews | `Review` | Summarise in 1–2 sentences |
+| Star ratings / Google ratings | `rating` | Summarise in 1–2 sentences |
+| Social media section | `socialMedia` | Format: "Platform - XK Followers" |
+| Tracxn data | `Tracxn` | Number only |
+| Acquisitions / funding / partnerships section | `acquisitions` | Short pointers |

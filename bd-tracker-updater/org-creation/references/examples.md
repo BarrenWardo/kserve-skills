@@ -8,19 +8,19 @@
   "websiteExist": "Yes",
   "website": "kserve.co.in",
   "lob": "NBFC",
-  "bdName": "Sangita",
+  "bdName": "VBDE",
   "turnover": 10.3,
-  "location": "Mumbai",
+  "location": "Mumbai, India",
   "yearInExistence": "23",
   "nameOfDirectors": "JD Mam, Rakesh Shetty",
-  "Review": "Product review was very good",
+  "Review": "Kserve BPO is a well-established outsourcing firm with strong client retention and diversified service offerings.",
   "numberOfCompanyBranches": "3",
-  "rating": "4.5 rating on Google",
-  "services": "Customer Service",
+  "rating": "Rated 4.5 on Google with consistent positive feedback on service quality and responsiveness.",
+  "services": "Customer Service, AI Bot",
   "customerCareNumber": "1800-260000",
-  "socialMedia": "50M followers on Instagram",
-  "Tracxn": "Tracxn rating 4.5",
-  "acquisitions": "No acquired by anyone",
+  "socialMedia": "Instagram - 50K Followers, Linkedin - 12K Followers",
+  "Tracxn": "4.5",
+  "acquisitions": "Partnered with Jio 2024, Acquired SmallCo BPO 2022",
   "formType": "Company"
 }
 ```
@@ -33,9 +33,9 @@
   "websiteExist": "Yes",
   "website": "bajajfinserv.in",
   "lob": "NBFC",
-  "bdName": "Darryl",
+  "bdName": "VBDE",
   "turnover": 45.2,
-  "location": "Pune",
+  "location": "Pune, India",
   "yearInExistence": "NA",
   "nameOfDirectors": "NA",
   "Review": "NA",
@@ -50,29 +50,20 @@
 }
 ```
 
-## No-Website Payload
+## Success Response
 
-When `websiteExist` is `"No"`, set `website` to `"NA"`:
+On HTTP 200, the API returns a JSON object. Extract and display `orgId`:
 
 ```json
 {
-  "companyName": "Local Finance Co",
-  "websiteExist": "No",
-  "website": "NA",
-  "lob": "BFSI",
-  "bdName": "Priya",
-  "turnover": 5.0,
-  "location": "Thane",
-  "yearInExistence": "8",
-  "nameOfDirectors": "Ramesh Shah",
-  "Review": "NA",
-  "numberOfCompanyBranches": "2",
-  "rating": "NA",
-  "services": "Lead Generation",
-  "customerCareNumber": "NA",
-  "socialMedia": "NA",
-  "Tracxn": "NA",
-  "acquisitions": "NA",
-  "formType": "Company"
+  "orgId": "ORG-20240509-001",
+  "message": "Company saved successfully"
 }
+```
+
+Display to user:
+```
+✅ Bajaj Finance saved to BD Tracker successfully.
+
+Organisation ID: ORG-20240509-001
 ```

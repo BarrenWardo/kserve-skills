@@ -10,9 +10,12 @@ description: >
 
 Creates a new organisation entry in the KServe BD Tracker.
 
-**Endpoint:** `POST https://n8n.kserve.dpdns.org/webhook/f50d69d1-edac-461b-8db3-0d8c81930e60`
+**Endpoint:** `$BD_TRACKER_URL$BD_TRACKER_ORG_CREATION_PATH`
 **Auth:** None
 **Content-Type:** `application/json`
+
+> `BD_TRACKER_URL` — base URL env var (e.g. `https://n8n.kserve.dpdns.org`)
+> `BD_TRACKER_ORG_CREATION_PATH` — webhook path env var (e.g. `/webhook/f50d69d1-edac-461b-8db3-0d8c81930e60`)
 
 ---
 
@@ -40,31 +43,40 @@ Scan the current conversation context:
 
 1. Extract all 18 fields from context
 2. Map extracted values to API field names (see `references/fields.md` — Extraction Mapping table)
-3. Set `formType` = `"Company"` (always hardcoded)
-4. Set any field not found in context to `"NA"`
+3. Hardcode these fields — never extract or ask user:
+   - `formType` = `"Company"`
+   - `bdName` = `"VBDE"`
+   - `websiteExist` = `"Yes"` (website is always mandatory)
+4. Set any optional field not found in context to `"NA"`
 5. Proceed to Step 3
 
 ---
 
 ## Step 2B: Guided Collection (No Data)
 
-Ask for required fields in this order — one question at a time, wait for each answer:
+Ask in this order — one question at a time, wait for each answer:
 
 1. "What is the company name?"
-2. "What line of business? (e.g., NBFC, BFSI, eCommerce, Insurance, Healthcare)"
-3. "Which BD Manager is handling this? (full name)"
-4. "Does the company have a website? (Yes / No)"
-5. If Yes → "What is the website URL?"
-6. "What is the company's annual turnover in Crore? (number only, e.g., 10.3)"
-7. "Which city is the company based in?"
+2. "What is the line of business? Choose from the approved list or propose a new one if nothing fits." *(show approved LOB list from `references/fields.md`)*
+3. "What is the company's website? (main domain only — e.g. kserve.co.in)"
+4. "What is the company's latest annual turnover? (Crore, numbers only — e.g. 2.5)"
+5. "Where is the company based? (City, Country — e.g. Mumbai, India)"
 
-After all required fields collected, ask once for optional fields:
+After required fields are collected, ask once for optional fields:
 
-> "Any additional details to add? (directors, branches, review, rating, KServe services to pitch, customer care number, social media, Tracxn rating, acquisitions info)
-> Say 'skip' to submit with these fields as NA."
+> "Any additional details? (say 'skip' to submit these as NA)
+> - Year in existence (numbers only — e.g. 12)
+> - Director names
+> - Number of branches
+> - Company review (1–2 sentences overall)
+> - Product/service rating (1–2 sentences)
+> - KServe services to pitch
+> - Customer care number
+> - Social media (e.g. Instagram - 10K Followers, Linkedin - 5K Followers)
+> - Tracxn rating (number only — e.g. 4.5)
+> - Acquisitions (short pointers — e.g. Acquired by Reliance 2023)"
 
-If user provides optional details: extract and map each one.
-If user says 'skip': set all remaining optional fields to `"NA"`.
+Hardcode: `formType` = `"Company"`, `bdName` = `"VBDE"`, `websiteExist` = `"Yes"`.
 
 ---
 
@@ -75,33 +87,32 @@ Display before submitting:
 ```
 Here's what I'll submit to the BD Tracker:
 
-| Field             | Value |
-|-------------------|-------|
-| Company Name      | [companyName] |
-| Line of Business  | [lob] |
-| BD Manager        | [bdName] |
-| Website Exists    | [websiteExist] |
-| Website           | [website] |
-| Turnover (Cr)     | [turnover] |
-| Location          | [location] |
+| Field             | Value             |
+|-------------------|-------------------|
+| Company Name      | [companyName]     |
+| Line of Business  | [lob]             |
+| BD Manager        | VBDE              |
+| Website           | [website]         |
+| Turnover (Cr)     | [turnover]        |
+| Location          | [location]        |
 | Year in Existence | [yearInExistence] |
 | Directors         | [nameOfDirectors] |
 | Branches          | [numberOfCompanyBranches] |
-| Review            | [Review] |
-| Rating            | [rating] |
-| Services          | [services] |
+| Review            | [Review]          |
+| Rating            | [rating]          |
+| Services          | [services]        |
 | Customer Care No. | [customerCareNumber] |
-| Social Media      | [socialMedia] |
-| Tracxn            | [Tracxn] |
-| Acquisitions      | [acquisitions] |
-| Form Type         | Company |
+| Social Media      | [socialMedia]     |
+| Tracxn            | [Tracxn]          |
+| Acquisitions      | [acquisitions]    |
+| Form Type         | Company           |
 
 Submit? (yes / no / correct [field name])
 ```
 
 - **yes** → validate then submit (Step 4)
 - **no** → cancel
-- **correct [field name]** → ask for the corrected value, update summary, re-display
+- **correct [field name]** → ask for corrected value, update summary, re-display
 
 ---
 
@@ -111,7 +122,7 @@ Check all required fields before submitting.
 
 Read `bd-tracker-updater/org-creation/references/fields.md` — Required Fields table — for exact validation rules.
 
-If any required field is invalid: tell the user exactly which field and the rule it broke. Ask for correction. Re-display the summary. Do not submit until all required fields pass validation.
+If any required field is invalid: tell the user which field failed and why. Ask for correction. Re-display summary. Do not submit until all required fields pass.
 
 ---
 
@@ -119,12 +130,8 @@ If any required field is invalid: tell the user exactly which field and the rule
 
 Construct the JSON payload using all 18 fields. See `bd-tracker-updater/org-creation/references/examples.md` for payload structure.
 
-POST to:
-```
-https://n8n.kserve.dpdns.org/webhook/f50d69d1-edac-461b-8db3-0d8c81930e60
-```
+POST to `$BD_TRACKER_URL$BD_TRACKER_ORG_CREATION_PATH` with:
 
-Headers:
 ```json
 {
   "Content-Type": "application/json"
