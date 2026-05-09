@@ -2,15 +2,15 @@
 
 ## Success (HTTP 200)
 
-Parse the JSON response. Extract `orgId` and confirm to the user:
+Parse the JSON response. Extract `Org_id` and confirm to the user:
 
 ```
 ✅ [companyName] saved to BD Tracker successfully.
 
-Organisation ID: [orgId]
+Organisation ID: [Org_id]
 ```
 
-The `orgId` confirms the record was created in the system.
+The `Org_id` confirms the record was created in the system.
 
 ## Error (HTTP 300 or non-200)
 
@@ -50,7 +50,7 @@ If all 3 retries fail:
 ❌ Could not reach BD Tracker after 3 attempts.
 Error: [error detail]
 
-Endpoint: $BD_TRACKER_URL$BD_TRACKER_ORG_CREATION_PATH
+Endpoint: https://n8n.kserve.dpdns.org/webhook/f50d69d1-edac-461b-8db3-0d8c81930e60
 
 Options:
   1. Retry again

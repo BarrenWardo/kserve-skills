@@ -10,12 +10,16 @@ description: >
 
 Creates a new organisation entry in the KServe BD Tracker.
 
-**Endpoint:** `$BD_TRACKER_URL$BD_TRACKER_ORG_CREATION_PATH`
+**Endpoint:** `$BD_Tracker_Base_URL$BD_Tracker_Endpoint`
 **Auth:** None
 **Content-Type:** `application/json`
 
-> `BD_TRACKER_URL` — base URL env var (e.g. `https://n8n.kserve.dpdns.org`)
-> `BD_TRACKER_ORG_CREATION_PATH` — webhook path env var (e.g. `/webhook/f50d69d1-edac-461b-8db3-0d8c81930e60`)
+| Variable | Value |
+|---|---|
+| `BD_Tracker_Base_URL` | `https://n8n.kserve.dpdns.org` |
+| `BD_Tracker_Endpoint` | `/webhook/f50d69d1-edac-461b-8db3-0d8c81930e60` |
+
+Full URL: `https://n8n.kserve.dpdns.org/webhook/f50d69d1-edac-461b-8db3-0d8c81930e60`
 
 ---
 
@@ -130,7 +134,7 @@ If any required field is invalid: tell the user which field failed and why. Ask 
 
 Construct the JSON payload using all 18 fields. See `bd-tracker-updater/org-creation/references/examples.md` for payload structure.
 
-POST to `$BD_TRACKER_URL$BD_TRACKER_ORG_CREATION_PATH` with:
+POST to `https://n8n.kserve.dpdns.org/webhook/f50d69d1-edac-461b-8db3-0d8c81930e60` with:
 
 ```json
 {

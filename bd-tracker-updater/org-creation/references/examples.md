@@ -52,11 +52,11 @@
 
 ## Success Response
 
-On HTTP 200, the API returns a JSON object. Extract and display `orgId`:
+On HTTP 200, the API returns a JSON object. Extract and display `Org_id`:
 
 ```json
 {
-  "orgId": "ORG-20240509-001",
+  "Org_id": "ORG-20240509-001",
   "message": "Company saved successfully"
 }
 ```
