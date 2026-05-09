@@ -100,7 +100,6 @@ Here's what I'll submit to the BD Tracker (* = required, cannot be NA):
 |---------------------|---------------------------|
 | Company Name *      | [companyName]             |
 | Line of Business *  | [lob]                     |
-| BD Manager          | VBDE                      |
 | Website *           | [website]                 |
 | Turnover (Cr) *     | [turnover]                |
 | Location *          | [location]                |
@@ -114,7 +113,6 @@ Here's what I'll submit to the BD Tracker (* = required, cannot be NA):
 | Social Media        | [socialMedia]             |
 | Tracxn              | [Tracxn]                  |
 | Acquisitions        | [acquisitions]            |
-| Form Type           | Company                   |
 
 Submit? (yes / no / correct [field name])
 ```

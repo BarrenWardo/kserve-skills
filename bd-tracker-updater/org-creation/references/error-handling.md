@@ -43,7 +43,7 @@ Options:
   2. Cancel
 ```
 
-If user chooses **Correct**: ask which field to change, collect new value, re-validate, re-display summary, resubmit on confirmation. Auto-retry logic applies again on the new submission.
+If user chooses **Correct**: ask which field to change, collect new value, re-validate, re-display summary, resubmit on confirmation. The resubmission gets a fresh set of 3 retries (independent of the previous attempt count).
 If user chooses **Cancel**: stop and acknowledge.
 
 ## Network / Connection Error
