@@ -42,7 +42,7 @@ bd-tracker-updater/
 
 ## API Reference
 
-**Endpoint:** `POST https://n8n.kserve.dpdns.org/webhook/f50d69d1-edac-461b-8db3-0d8c81930e60`  
+**Endpoint:** `POST $BD_Tracker_Base_URL$BD_Tracker_Endpoint`  
 **Auth:** None  
 **Content-Type:** `application/json`  
 **Success:** HTTP 200 → "Company saved successfully"  

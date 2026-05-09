@@ -27,18 +27,6 @@ KServe's BD Tracker is the central system for logging and tracking business deve
 - **"Update BD form"** → `org-creation`
 - **"Push to tracker"** → `org-creation`
 
-## Common Setup
-
-### Webhook Base URL
-
-```
-https://n8n.kserve.dpdns.org
-```
-
-### Authentication
-
-No authentication required. All BD Tracker webhooks are publicly accessible.
-
 ## Routing Instructions
 
 When the user's request matches any Quick Routing phrase above:
