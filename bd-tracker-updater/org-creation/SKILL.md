@@ -45,14 +45,15 @@ Scan the current conversation context:
 
 ## Step 2A: Extract (Research Report or Raw Data)
 
-1. Extract all 18 fields from context
+1. Extract 15 fields from context (3 are hardcoded — do not extract `formType`, `bdName`, `websiteExist`)
 2. Map extracted values to API field names (see `references/fields.md` — Extraction Mapping table)
 3. Hardcode these fields — never extract or ask user:
    - `formType` = `"Company"`
    - `bdName` = `"VBDE"`
    - `websiteExist` = `"Yes"` (website is always mandatory)
-4. Set any optional field not found in context to `"NA"`
-5. Proceed to Step 3
+4. For each required field (`companyName`, `lob`, `website`, `turnover`, `location`): if not found in context, **stop and ask the user** before proceeding. Do not set required fields to `"NA"`.
+5. Set any optional field not found in context to `"NA"`
+6. Proceed to Step 3
 
 ---
 
@@ -81,8 +82,9 @@ After required fields are collected, ask once for optional fields:
 > - Acquisitions (short pointers — e.g. Acquired by Reliance 2023)"
 
 After the user responds:
-- Map any provided values to their API fields
-- Set every optional field the user did **not** provide to `"NA"` — no optional field may be absent or blank in the payload
+- If user says "skip": set all optional fields to `"NA"`
+- If user provides some details: extract and map those values; set any optional field not mentioned to `"NA"`
+- No optional field may be absent or blank in the payload
 
 Hardcode: `formType` = `"Company"`, `bdName` = `"VBDE"`, `websiteExist` = `"Yes"`.
 
@@ -130,7 +132,7 @@ Check all required fields before submitting.
 
 Read `bd-tracker-updater/org-creation/references/fields.md` — Required Fields table — for exact validation rules.
 
-If any required field is invalid: tell the user which field failed and why. Ask for correction. Re-display summary. Do not submit until all required fields pass.
+If any required field is invalid: tell the user which field failed and why. Ask for the corrected value. Update the field, re-display the full summary, and prompt "Submit? (yes / no / correct [field name])" again. Repeat until all required fields pass — there is no limit on correction rounds.
 
 ---
 
