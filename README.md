@@ -1,5 +1,7 @@
 # KServe Skills
 
+> **Private repository.** Internal agent skills for KServe's BD team. Not for public distribution.
+
 Agent skills for KServe's business development and sales intelligence workflows.
 Compatible with Claude Code, Claude.ai, OpenCode, Codex, and any platform that supports the [skills](https://github.com/vercel-labs/skills) standard.
 
@@ -13,6 +15,7 @@ Install a specific skill:
 
 ```bash
 npx skills add KServe-FMS/skills --skill company-research
+npx skills add KServe-FMS/skills --skill bd-tracker-updater
 ```
 
 ## Available Skills
@@ -20,8 +23,13 @@ npx skills add KServe-FMS/skills --skill company-research
 | Skill | Description |
 |---|---|
 | `company-research` | Researches a prospect company and produces a full BD intelligence report — turnover, directors, reviews, KServe fit assessment, and actionable outreach briefing |
+| `bd-tracker-updater` | Saves a company prospect to KServe's BD Tracker via webhook — extracts fields from a research report, raw data, or guided collection; validates, previews, and submits |
 
-## How to use
+---
+
+## `company-research`
+
+### How to use
 
 Once installed, just ask naturally in any supported AI platform:
 
@@ -62,6 +70,58 @@ A structured BD intelligence report covering 20 sections:
 
 Every data point includes a source URL and freshness timestamp. High-stakes fields (turnover, directors) are MCA-verified.
 
+---
+
+## `bd-tracker-updater`
+
+### How to use
+
+Trigger after a company-research report, with raw data, or with no data at all:
+
+- `"Add this company to BD tracker"`
+- `"Save Reliance Retail to BD tracker"`
+- `"Log this company"` *(after a research report is in context)*
+- `"Record in BD"`
+- `"Push to tracker"`
+
+The skill detects what data is already available, fills any gaps, shows a pre-submit summary, and fires the API only after you confirm.
+
+### What you need
+
+Set these env vars in your environment before using:
+
+```
+BD_Tracker_Base_URL=<your-n8n-instance-url>
+BD_Tracker_Endpoint=<webhook-path>
+```
+
+### What it submits
+
+18 fields per company:
+
+| Field | Rule |
+|---|---|
+| Company Name | Required — non-empty |
+| Line of Business | Required — must match 15-item approved list; case-insensitive input normalised on submit |
+| Website | Required — main domain only (e.g. `kserve.co.in`); paths, `www.`, and trailing slashes stripped |
+| Turnover (Cr) | Required — JSON number, latest year (e.g. `2.5`) |
+| Location | Required — `"City, Country"` format |
+| Year in Existence | Optional — numbers only |
+| Directors | Optional — comma-separated names |
+| Branches | Optional — count |
+| Review | Optional — 1–2 sentence company overview |
+| Rating | Optional — 1–2 sentence product/service rating |
+| Services | Optional — KServe services to pitch |
+| Customer Care No. | Optional — phone number |
+| Social Media | Optional — `"Platform - XK Followers"` format |
+| Tracxn | Optional — number only |
+| Acquisitions | Optional — short pointers |
+| BD Manager | Always `"VBDE"` — hardcoded |
+| Form Type | Always `"Company"` — hardcoded |
+| Website Exists | Always `"Yes"` — hardcoded |
+
+Optional fields not available default to `"NA"` automatically.
+
 ## Adding New Skills
 
 Drop a new directory with a `SKILL.md` file into this repo. The skills CLI will automatically discover it.
@@ -83,5 +143,5 @@ This repo follows semantic versioning:
 | Bump | When to use |
 |---|---|
 | **Patch** (1.x.Y) | Typo fixes, instruction clarifications, Checker criteria wording |
-| **Minor** (1.X.0) | New sub-sections within an existing step, new Checker criteria, new output fields, new steps |
-| **Major** (X.0.0) | New skills added, workflow restructuring, breaking changes to output format |
+| **Minor** (1.X.0) | New skills added, new sub-sections within an existing step, new Checker criteria, new output fields, new steps |
+| **Major** (X.0.0) | Workflow restructuring, breaking changes to output format |
