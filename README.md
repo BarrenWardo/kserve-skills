@@ -16,6 +16,7 @@ Install a specific skill:
 ```bash
 npx skills add KServe-FMS/skills --skill company-research
 npx skills add KServe-FMS/skills --skill bd-tracker-updater
+npx skills add KServe-FMS/skills --skill apollo
 ```
 
 ## Available Skills
@@ -24,6 +25,27 @@ npx skills add KServe-FMS/skills --skill bd-tracker-updater
 |---|---|
 | `company-research` | Researches a prospect company and produces a full BD intelligence report — turnover, directors, reviews, KServe fit assessment, and actionable outreach briefing |
 | `bd-tracker-updater` | Saves a company prospect to KServe's BD Tracker via webhook — extracts fields from a research report, raw data, or guided collection; validates, previews, and submits |
+| `apollo` | Calls Apollo.io APIs for sales intelligence — people enrichment from LinkedIn profile URLs via People Match API |
+
+---
+
+## `apollo`
+
+### How to use
+
+Trigger with a LinkedIn profile URL to enrich person data:
+
+- `"Enrich this person: https://www.linkedin.com/in/username/"`
+- `"Look up this person on Apollo"`
+- `"Get Apollo data for this profile"`
+
+The skill validates the URL, calls the Apollo.io People Match API, and returns the enriched person JSON.
+
+### What you need
+
+```
+APOLLO_API_KEY=<your-apollo-io-api-key>
+```
 
 ---
 
