@@ -919,7 +919,7 @@ Source(s): [MCA URL] | Confidence: HIGH/MED/LOW | Source date: YYYY-MM-DD
   Background: [previous companies / roles / industry tenure]
   LinkedIn activity: [last post date + content themes / "No public activity visible"]
   Likely first objection: [specific pushback based on background]
-[Repeat for each ★-flagged director with accessible LinkedIn]
+[Repeat for each ★-flagged director]
 Source(s): [LinkedIn URLs] | Confidence: HIGH/MED/LOW | Checked: YYYY-MM-DD
 
 🗺️ BRANCHES & OFFICES
