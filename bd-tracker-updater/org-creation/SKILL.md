@@ -71,7 +71,7 @@ After required fields are collected, ask once for optional fields:
 
 > "Any additional details? (say 'skip' to submit these as NA)
 > - Year in existence (numbers only — e.g. 12)
-> - Director names
+> - Director names with current roles if available (e.g. Rakesh Jha - Chairman, Sanjeev Mantri - MD & CEO); names only if roles unknown
 > - Number of branches
 > - Company review (1–2 sentences overall)
 > - Product/service rating (1–2 sentences)
@@ -104,7 +104,7 @@ Here's what I'll submit to the BD Tracker (* = required, cannot be NA):
 | Turnover (Cr) *     | [turnover]                |
 | Location *          | [location]                |
 | Year in Existence   | [yearInExistence]         |
-| Directors           | [nameOfDirectors]         |
+| Directors           | [nameOfDirectors] (Name - Role) |
 | Branches            | [numberOfCompanyBranches] |
 | Review              | [Review]                  |
 | Rating              | [rating]                  |

@@ -46,7 +46,7 @@ Submit as `"NA"` if not available. Never leave blank — always include in paylo
 | Field | Type | Description | Format |
 |---|---|---|---|
 | `yearInExistence` | String | Years since established | Numbers only. Example: `"12"`, `"5"`, `"40"` |
-| `nameOfDirectors` | String | Director names, comma-separated | `"JD Mam, Rakesh Shetty"` |
+| `nameOfDirectors` | String | Director names with current roles, comma-separated. If roles unavailable, names only. | `"Rakesh Jha - Chairman, Sanjeev Mantri - MD & CEO"` |
 | `numberOfCompanyBranches` | String | Total branch count | `"3"`, `"12"`, `"50+"` |
 | `Review` | String | Overall company review | 1–2 sentences summarising company quality, market reputation, or notable strengths/weaknesses |
 | `rating` | String | Overall product/service rating | 1–2 sentences describing rating and context. Example: `"Rated 4.2 on Google with strong customer satisfaction feedback"` |
@@ -68,7 +68,7 @@ When extracting from a company-research report output, map sections to API field
 | Turnover / revenue figures | `turnover` | Latest year, numeric in Crore only |
 | City / head office / registered address | `location` | Format as "City, Country" |
 | Year founded / MCA incorporation year | `yearInExistence` | Numbers only |
-| Directors / board members | `nameOfDirectors` | |
+| Directors / board members | `nameOfDirectors` | Include each person's current role — format: `"Name - Role"`, comma-separated. If roles are unavailable, submit names only (e.g. `"Rakesh Jha, Sanjeev Mantri"`). |
 | Branch count / office locations count | `numberOfCompanyBranches` | |
 | Product or service reviews | `Review` | Summarise in 1–2 sentences |
 | Star ratings / Google ratings | `rating` | Summarise in 1–2 sentences |

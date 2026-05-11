@@ -10,12 +10,13 @@ Parse the JSON response. Extract `Org_id` and confirm to the user:
 Organisation ID: [Org_id]
 ```
 
-If `Org_id` is absent from the response, warn the user:
+If `Org_id` is absent from the response or is a blank string (`""`), warn the user:
 
 ```
 ⚠️ BD Tracker returned HTTP 200 but no Organisation ID in the response.
 Response received: [response body]
-The record may still have been created — please verify manually in the BD Tracker.
+The data was likely uploaded, but there may be another issue on the tracker side.
+Please open the BD Tracker and check the record manually — look for the Org_id assigned to this entry.
 ```
 
 ## Error (HTTP 300 or non-200)

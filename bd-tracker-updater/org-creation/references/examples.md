@@ -12,7 +12,7 @@
   "turnover": 10.3,
   "location": "Mumbai, India",
   "yearInExistence": "23",
-  "nameOfDirectors": "JD Mam, Rakesh Shetty",
+  "nameOfDirectors": "JD Mam - CEO, Rakesh Shetty - CFO",
   "Review": "Kserve BPO is a well-established outsourcing firm with strong client retention and diversified service offerings.",
   "numberOfCompanyBranches": "3",
   "rating": "Rated 4.5 on Google with consistent positive feedback on service quality and responsiveness.",
