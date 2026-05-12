@@ -53,7 +53,8 @@ This skill requires the following to be present in the conversation (from previo
    - Step 7B (Job Postings — hiring pressure signals)
    - Step 8 (Reviews & Reputation — complaint themes, pain point evidence)
    - Step 10 (KServe Services Fit — which services match)
-   - Step 10B (ICP Score — priority tier)
+    - Step 10B (ICP Score — priority tier)
+    - Step 15 (BD Intelligence Briefing — Section E: Next Best Action for recommended outreach sequence)
 2. **Contact details** — verified business emails for decision-makers (from Apollo people-enrichment or other source)
 
 If these are not present in the conversation, stop and ask the user to provide them before proceeding.
@@ -88,9 +89,11 @@ From the Decision-Maker Dossiers (Step 6B) and the contact details, identify DMs
 2. They have a **verified business email** in the provided contact details
 3. Their likely objection (from Step 6B dossiers) can be addressed by one of KServe's services
 
-Use the recommended outreach sequence from the report (Step 15) as a tiebreaker. Prefer the person closest to the operational pain (service owner) over the final decision-maker — a warm handoff from the operational lead carries more weight.
+Use Step 15, Section E (Next Best Action) as a tiebreaker. Prefer the person closest to the operational pain (service owner) — an email to the ops lead who can escalate internally carries more weight than going directly to the CEO.
 
-Select the best **1–2 candidates**. If none qualify, explain why and suggest next steps.
+Select the best **1–2 candidates**. If none qualify:
+- Explain which DMs were evaluated and why each was excluded
+- Suggest concrete next steps: (a) re-run Apollo enrichment if no emails were found, (b) search LinkedIn manually for the contact, (c) deprioritise if no DM's role aligns with KServe's services
 
 ### Step 3 — Email drafting
 
@@ -119,6 +122,8 @@ For each selected DM, generate a tailored cold email with the following structur
 
 No calendar links, no call booking, no website CTAs, no PDF attachments.
 
+**Sender signature** — Use the BD rep's actual name and `[name]@kserve.co.in` in the signature block. Do not leave `[Your Name]` as a placeholder.
+
 ### Step 4 — Quality check (self-review before output)
 
 Before presenting the email, verify it meets these criteria:
@@ -142,7 +147,7 @@ If one DM qualifies:
 **To:** [email]
 **Subject:** [subject line]
 
-[Full email body — 3-4 paragraphs, no more than ~250 words]
+[Full email body — 3-4 paragraphs, no more than ~250 words. The rationale below is separate.]
 
 ---
 *Why this approach:* [1-2 sentence rationale — why this DM was chosen, what pain point was targeted, why this angle was used]
@@ -196,8 +201,8 @@ I know ICICI Group has historically preferred in-house operations. That's fair. 
 If this sounds relevant, reply and I'll share more details.
 
 Best,
-[Your Name]
-KServe
+Rohit Sharma
+rohit.sharma@kserve.co.in
 
 ---
 *Why this approach:* Sanjeev is the final decision-maker with a 28-year insurance background. The email acknowledges ICICI Lombard's strengths first, then leads with the #1 customer complaint, and pre-empts the in-house objection with a low-friction pilot CTA. No external links — everything is a reply away.

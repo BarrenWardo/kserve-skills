@@ -44,8 +44,8 @@ The skill requires the following in context:
    - Step 7B (Job Postings — hiring pressure signals)
    - Step 8 (Reviews & Reputation — complaint themes, pain point evidence)
    - Step 10 (KServe Services Fit — which services match)
-   - Step 10B (ICP Score — priority tier)
-   - Step 17 (Competitive Landscape — market pressure context)
+    - Step 10B (ICP Score — priority tier)
+    - Step 15 (BD Intelligence Briefing — Section E: Next Best Action for recommended outreach sequence)
 2. **Contact details** — verified emails for decision-makers (from Apollo people-enrichment or other source)
 
 If these are not present in context, the skill asks the user to provide them before proceeding.
@@ -62,9 +62,9 @@ Single-pass generation (Approach A from design). No checker gates or template sl
    - Their role is relevant to the outsourcing decision (service owner, cost gatekeeper, or final decision-maker)
    - They have a verified business email in the contact details
    - Their likely objection can be addressed by KServe's services
-   - The recommended outreach sequence from the report should guide priority
+    - Step 15, Section E (Next Best Action) should guide priority
 
-   Select the best 1-2 candidates. If none qualify, explain why and suggest next steps.
+   Select the best 1-2 candidates. If none qualify, explain why and suggest concrete next steps (e.g., re-run Apollo enrichment, manual LinkedIn lookup, deprioritise).
 
 3. **Email drafting** — for each selected DM, generate a tailored cold email with these sections:
    - **Subject line** — specific to the DM's role and the company's pain point (not generic). Must earn an open.
@@ -137,8 +137,8 @@ I know ICICI Group has historically preferred in-house operations. That's fair. 
 If this sounds relevant, reply and I'll share a one-page pilot proposal tailored to ICICI Lombard's claims volume.
 
 Best,
-[Your Name]
-KServe
+Rohit Sharma
+rohit.sharma@kserve.co.in
 
 ---
 *Why this approach:* Sanjeev is the final decision-maker and a 28-year insurance veteran. The email acknowledges ICICI Lombard's strengths first (growth, cloud leadership), then leads with the #1 customer complaint (claims), and directly pre-empts his likely objection ("we do things in-house"). The CTA is a low-friction reply request, not a commitment.
