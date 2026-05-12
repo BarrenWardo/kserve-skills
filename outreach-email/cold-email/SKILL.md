@@ -117,8 +117,8 @@ For each selected DM, generate a tailored cold email with the following structur
 - If objection is "our metrics are already best-in-class": acknowledge their efficiency, frame as capacity scaling not replacement
 - If objection is "service quality is core to our brand": acknowledge the brand promise, present the quality framework
 
-**CTA** — Always reply-based only:
-> "If this sounds relevant, reply and I'll share more details."
+**CTA** — Ask them to reply on this email. Always reply-based only:
+> "If this sounds relevant, simply reply to this email and I'll share more details."
 
 No calendar links, no call booking, no website CTAs, no PDF attachments.
 
@@ -198,7 +198,7 @@ KServe handles claims processing and customer service for BFSI companies. We com
 
 I know ICICI Group has historically preferred in-house operations. That's fair. What I'm suggesting is a small pilot — one process, measurable KPIs, 90 days. If it works, you scale. If it doesn't, there's no disruption.
 
-If this sounds relevant, reply and I'll share more details.
+If this sounds relevant, simply reply to this email and I'll share more details.
 
 Best,
 Rohit Sharma

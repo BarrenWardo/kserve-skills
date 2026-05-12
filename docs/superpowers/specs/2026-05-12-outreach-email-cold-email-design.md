@@ -72,7 +72,7 @@ Single-pass generation (Approach A from design). No checker gates or template sl
    - **Pain point** — the most relevant problem from the report that falls under this DM's purview. Evidence specific: "3,500+ complaints about claim settlement delays" not "we heard you have some customer issues."
    - **KServe positioning** — the matching service from Step 10 (KServe Fit), framed as solving their specific pain point. Include relevant detail about KServe's approach, not generic BPO claims.
    - **Objection handling** — directly pre-empt the DM's likely objection from the dossier (Step 6B). Diffuse it naturally within the narrative, not as a separate FAQ section.
-   - **CTA** — always reply-based only: "If this sounds relevant, reply and I'll share more details." No calendar links, no call booking, no website CTAs.
+   - **CTA** — ask them to reply on this email. Always reply-based only: "If this sounds relevant, simply reply to this email and I'll share more details." No calendar links, no call booking, no website CTAs.
 
 4. **Output presentation** — display each email with metadata.
 
@@ -134,7 +134,7 @@ KServe handles claims processing and customer service for BFSI companies. We com
 
 I know ICICI Group has historically preferred in-house operations. That's fair. What I'm suggesting is a small pilot — one process, measurable KPIs, 90 days. If it works, you scale. If it doesn't, there's no disruption.
 
-If this sounds relevant, reply and I'll share a one-page pilot proposal tailored to ICICI Lombard's claims volume.
+If this sounds relevant, simply reply to this email and I'll share more details.
 
 Best,
 Rohit Sharma
