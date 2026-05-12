@@ -138,7 +138,7 @@ If this sounds relevant, reply and I'll share a one-page pilot proposal tailored
 
 Best,
 Rohit Sharma
-rohit.sharma@kserve.co.in
+KServe BPO
 
 ---
 *Why this approach:* Sanjeev is the final decision-maker and a 28-year insurance veteran. The email acknowledges ICICI Lombard's strengths first (growth, cloud leadership), then leads with the #1 customer complaint (claims), and directly pre-empts his likely objection ("we do things in-house"). The CTA is a low-friction reply request, not a commitment.

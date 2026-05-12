@@ -122,7 +122,7 @@ For each selected DM, generate a tailored cold email with the following structur
 
 No calendar links, no call booking, no website CTAs, no PDF attachments.
 
-**Sender signature** — Use the BD rep's actual name and `[name]@kserve.co.in` in the signature block. Do not leave `[Your Name]` as a placeholder.
+**Sender signature** — Use the BD rep's actual name and `KServe BPO` in the signature block. Do not leave `[Your Name]` as a placeholder.
 
 ### Step 4 — Quality check (self-review before output)
 
@@ -202,7 +202,7 @@ If this sounds relevant, reply and I'll share more details.
 
 Best,
 Rohit Sharma
-rohit.sharma@kserve.co.in
+KServe BPO
 
 ---
 *Why this approach:* Sanjeev is the final decision-maker with a 28-year insurance background. The email acknowledges ICICI Lombard's strengths first, then leads with the #1 customer complaint, and pre-empts the in-house objection with a low-friction pilot CTA. No external links — everything is a reply away.
