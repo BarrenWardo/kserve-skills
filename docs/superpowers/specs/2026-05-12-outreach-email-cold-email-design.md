@@ -115,24 +115,24 @@ If multiple DMs qualify, present them sequentially with a summary at top:
 ## Email to: [Name 2] …
 ```
 
-### Example Output (ICICI Lombard — Sanjeev Mantri)
+### Example Output (fictional company — Jane Wong, MD & CEO of Aegis Insure)
 
 ```
-*Drafting emails for 1 decision-maker: Sanjeev Mantri → Claims processing & CS outsourcing*
+*Drafting emails for 1 decision-maker: Jane Wong → Claims processing & CS outsourcing*
 
-## Email to: Sanjeev Mantri — MD & CEO
-**To:** sanjeev.mantri@icicilombard.com
-**Subject:** ICICI Lombard's claims resolution — a process partnership worth 15 minutes
+## Email to: Jane Wong — MD & CEO
+**To:** jane.wong@aegis-insure.com
+**Subject:** Aegis Insure's customer complaints — a process partnership worth 15 minutes
 
-Sanjeev,
+Jane,
 
-ICICI Lombard's 17% GWP growth this year is impressive — and your cloud migration shows the organisation isn't afraid to restructure how work gets done.
+Aegis Insure's 17% premium growth this year is impressive — and your investment in a full cloud migration shows the organisation isn't afraid to restructure how work gets done.
 
-But 3,500+ consumer complaints about claim settlement delays and 200+ unanswered customer calls are a brand risk that scales with growth. For a company built on "Nibhaye Vaade," every unresolved claim erodes the promise.
+But 3,500+ consumer complaints about claim settlement delays and 200+ unanswered customer calls are a brand risk that scales with growth. For a company built on a promise of "smooth claims," every unresolved complaint erodes trust.
 
-KServe handles claims processing and customer service for BFSI companies. We combine AI-powered triage with trained ops teams so claims move faster and CS backlogs clear — without ICICI Lombard needing to build more internal capacity. Our approach is tech-enabled, not headcount-heavy, so it fits the digital-first direction you've already set.
+KServe handles claims processing and customer service for BFSI companies. We combine AI-powered triage with trained ops teams so claims move faster and CS backlogs clear — without Aegis needing to build more internal capacity. Our approach is tech-enabled, not headcount-heavy, so it fits the digital-first direction you've already set.
 
-I know ICICI Group has historically preferred in-house operations. That's fair. What I'm suggesting is a small pilot — one process, measurable KPIs, 90 days. If it works, you scale. If it doesn't, there's no disruption.
+I know Aegis has historically preferred in-house operations. That's fair. What I'm suggesting is a small pilot — one process, measurable KPIs, 90 days. If it works, you scale. If it doesn't, there's no disruption.
 
 If this sounds relevant, simply reply to this email and I'll share more details.
 
@@ -141,7 +141,7 @@ Rohit Sharma
 KServe BPO
 
 ---
-*Why this approach:* Sanjeev is the final decision-maker and a 28-year insurance veteran. The email acknowledges ICICI Lombard's strengths first (growth, cloud leadership), then leads with the #1 customer complaint (claims), and directly pre-empts his likely objection ("we do things in-house"). The CTA is a low-friction reply request, not a commitment.
+*Why this approach:* Jane is the final decision-maker with deep insurance industry experience. The email acknowledges Aegis's strengths first, then leads with the #1 customer complaint, and pre-empts the in-house objection with a low-friction pilot CTA. No external links — everything is a reply away.
 ```
 
 ### What's NOT Included
@@ -170,7 +170,7 @@ And a usage section:
 
 Trigger after you have company research and DM contact details:
 
-- `"Write a cold email to the right person at ICICI Lombard"`
+- `"Write a cold email to the right person at [company name]"`
 - `"Generate outreach for the decision-maker at this company"`
 - `"Draft a personalized email for [DM name]"`
 

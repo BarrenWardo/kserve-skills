@@ -154,7 +154,7 @@ Optional fields not available default to `"NA"` automatically.
 
 Trigger after you have company research and DM contact details:
 
-- `"Write a cold email to the right person at ICICI Lombard"`
+- `"Write a cold email to the right person at [company name]"`
 - `"Generate outreach for the decision-maker at this company"`
 - `"Draft a personalized email for [DM name]"`
 

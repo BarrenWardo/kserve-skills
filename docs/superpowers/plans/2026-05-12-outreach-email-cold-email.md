@@ -184,11 +184,11 @@ Select the best **1–2 candidates**. If none qualify, explain why and suggest n
 For each selected DM, generate a tailored cold email with the following structure:
 
 **Subject line** — Specific to the DM's role and the company's most relevant pain point. Must earn an open. Examples:
-- "ICICI Lombard's claims resolution — a process partnership worth 15 minutes"
+- "[Company]'s [pain point] — a process partnership worth 15 minutes"
 - "[Company]'s [pain point] — how we solve it for BFSI companies"
 
 **Opening** — Reference their specific role and a concrete recent company achievement or context. Shows genuine research, not a blast. Example:
-> "Sanjeev, ICICI Lombard's 17% GWP growth this year is impressive — and your cloud migration shows the organisation isn't afraid to restructure how work gets done."
+> "Jane, [Company]'s 17% premium growth this year is impressive — and your cloud migration shows the organisation isn't afraid to restructure how work gets done."
 
 **Pain point** — The most relevant problem from the report that falls under this DM's purview. Be specific: cite numbers (complaint counts, open roles, churn rates, complaint themes). Not generic. Example:
 > "But 3,500+ consumer complaints about claim settlement delays and 200+ unanswered customer calls are a brand risk that scales with growth."
@@ -249,45 +249,45 @@ If multiple DMs qualify, present them sequentially with a summary at top:
 
 ## Example
 
-Given the ICICI Lombard company research report and these verified emails:
-- sanjeev.mantri@icicilombard.com (MD & CEO)
-- gopal.balachandran@icicilombard.com (CFO)
-- anand.singhi@icicilombard.com (Chief Retail & Government)
+Given the fictional company (Aegis Insure) research report and these verified emails:
+- jane.wong@aegis-insure.com (MD & CEO)
+- raj.mehta@aegis-insure.com (CFO)
+- priya.sharma@aegis-insure.com (Chief Retail & Government)
 
 ### DM selection
 
-1. **Girish Sehgal** — best role match (Customer Experience & Operations) but **no verified email** → excluded
-2. **Sanjeev Mantri** — final decision-maker, has verified email, objection ("we do things in-house") addressable with pilot framing → selected
-3. **Gopal Balachandran** — cost gatekeeper, has verified email, objection ("expense ratios are best-in-class") addressable → could be secondary
-4. **Anand Singhi** — distribution stakeholder, lower relevance for CS/claims pain point → lower priority
+1. **Carlos Mendez** — best role match (Customer Experience & Operations) but **no verified email** → excluded
+2. **Jane Wong** — final decision-maker, has verified email, objection ("we keep operations in-house") addressable with pilot framing → selected
+3. **Raj Mehta** — cost gatekeeper, has verified email, objection ("expense ratios are already optimized") addressable → could be secondary
+4. **Priya Sharma** — distribution stakeholder, lower relevance for CS/claims pain point → lower priority
 
-**Result:** 1 email — Sanjeev Mantri.
+**Result:** 1 email — Jane Wong.
 
 ### Output
 
 ```
-## Email to: Sanjeev Mantri — MD & CEO
-**To:** sanjeev.mantri@icicilombard.com
-**Subject:** ICICI Lombard's claims resolution — a process partnership worth 15 minutes
+## Email to: Jane Wong — MD & CEO
+**To:** jane.wong@aegis-insure.com
+**Subject:** Aegis Insure's customer complaints — a process partnership worth 15 minutes
 
-Sanjeev,
+Jane,
 
-ICICI Lombard's 17% GWP growth this year is impressive — and your cloud migration shows the organisation isn't afraid to restructure how work gets done.
+Aegis Insure's 17% premium growth this year is impressive — and your investment in a full cloud migration shows the organisation isn't afraid to restructure how work gets done.
 
-But 3,500+ consumer complaints about claim settlement delays and 200+ unanswered customer calls are a brand risk that scales with growth. For a company built on "Nibhaye Vaade," every unresolved claim erodes the promise.
+But 3,500+ consumer complaints about claim settlement delays and 200+ unanswered customer calls are a brand risk that scales with growth. For a company built on a promise of "smooth claims," every unresolved complaint erodes trust.
 
-KServe handles claims processing and customer service for BFSI companies. We combine AI-powered triage with trained ops teams so claims move faster and CS backlogs clear — without ICICI Lombard needing to build more internal capacity. Our approach is tech-enabled, not headcount-heavy, so it fits the digital-first direction you've already set.
+KServe handles claims processing and customer service for BFSI companies. We combine AI-powered triage with trained ops teams so claims move faster and CS backlogs clear — without Aegis needing to build more internal capacity. Our approach is tech-enabled, not headcount-heavy, so it fits the digital-first direction you've already set.
 
-I know ICICI Group has historically preferred in-house operations. That's fair. What I'm suggesting is a small pilot — one process, measurable KPIs, 90 days. If it works, you scale. If it doesn't, there's no disruption.
+I know Aegis has historically preferred in-house operations. That's fair. What I'm suggesting is a small pilot — one process, measurable KPIs, 90 days. If it works, you scale. If it doesn't, there's no disruption.
 
-If this sounds relevant, reply and I'll share a one-page pilot proposal tailored to ICICI Lombard's claims volume.
+If this sounds relevant, reply and I'll share more details.
 
 Best,
-[Your Name]
-KServe
+Rohit Sharma
+KServe BPO
 
 ---
-*Why this approach:* Sanjeev is the final decision-maker with a 28-year insurance background. The email acknowledges ICICI Lombard's strengths first, then leads with the #1 customer complaint, and pre-empts the in-house objection with a low-friction pilot CTA. No external links — everything is a reply away.
+*Why this approach:* Jane is the final decision-maker with deep insurance industry experience. The email acknowledges Aegis's strengths first, then leads with the #1 customer complaint, and pre-empts the in-house objection with a low-friction pilot CTA. No external links — everything is a reply away.
 ```
 
 - [ ] **Step 3: Commit**
@@ -323,7 +323,7 @@ Append to README.md:
 
 Trigger after you have company research and DM contact details:
 
-- `"Write a cold email to the right person at ICICI Lombard"`
+- `"Write a cold email to the right person at [company name]"`
 - `"Generate outreach for the decision-maker at this company"`
 - `"Draft a personalized email for [DM name]"`
 
