@@ -17,6 +17,7 @@ Install a specific skill:
 npx skills add KServe-FMS/skills --skill company-research
 npx skills add KServe-FMS/skills --skill bd-tracker-updater
 npx skills add KServe-FMS/skills --skill apollo
+npx skills add KServe-FMS/skills --skill outreach-email
 ```
 
 ## Available Skills
@@ -26,6 +27,7 @@ npx skills add KServe-FMS/skills --skill apollo
 | `company-research` | Researches a prospect company and produces a full BD intelligence report — turnover, directors, reviews, KServe fit assessment, and actionable outreach briefing |
 | `bd-tracker-updater` | Saves a company prospect to KServe's BD Tracker via webhook — extracts fields from a research report, raw data, or guided collection; validates, previews, and submits |
 | `apollo` | Calls Apollo.io APIs for sales intelligence — people enrichment from LinkedIn profile URLs via People Match API |
+| `outreach-email` | Generates personalized cold outreach emails to prospect decision-makers using company research data and DM contact details |
 
 ---
 
@@ -143,6 +145,26 @@ BD_Tracker_Endpoint=<webhook-path>
 | Website Exists | Always `"Yes"` — hardcoded |
 
 Optional fields not available default to `"NA"` automatically.
+
+---
+
+## `outreach-email`
+
+### How to use
+
+Trigger after you have company research and DM contact details:
+
+- `"Write a cold email to the right person at ICICI Lombard"`
+- `"Generate outreach for the decision-maker at this company"`
+- `"Draft a personalized email for [DM name]"`
+
+The skill reads the company research and DM dossiers from context, identifies the best-fit decision-maker with a verified email, and drafts a personalized cold outreach email.
+
+### What you need
+
+A company research report (from `company-research` skill) and verified DM emails (from `apollo` skill).
+
+---
 
 ## Adding New Skills
 
