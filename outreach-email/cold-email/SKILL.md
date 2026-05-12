@@ -44,7 +44,7 @@ BFSI · NBFC · Banking & Securities · Insurance · eCommerce · Education / Ed
 
 ## Input Requirements
 
-This skill requires the following in context before it can generate an email:
+This skill requires the following to be present in the conversation (from previous skill outputs or user-provided data):
 
 1. **Company research report** — specifically needs these sections:
    - Step 2 (Line of Business — industry context)
@@ -54,16 +54,19 @@ This skill requires the following in context before it can generate an email:
    - Step 8 (Reviews & Reputation — complaint themes, pain point evidence)
    - Step 10 (KServe Services Fit — which services match)
    - Step 10B (ICP Score — priority tier)
-   - Step 17 (Competitive Landscape — market pressure context)
 2. **Contact details** — verified business emails for decision-makers (from Apollo people-enrichment or other source)
 
-If these are not present in context, stop and ask the user to provide them before proceeding.
+If these are not present in the conversation, stop and ask the user to provide them before proceeding.
+
+---
+
+## Platform Execution Mode
+
+**Always SEQUENTIAL.** This skill runs as a single reasoning pass — no parallel workers. Unlike company-research, there are no independent data-collection steps to parallelize. The entire workflow (input verification → DM selection → email drafting → quality check) is a linear chain where each step depends on the previous one.
 
 ---
 
 ## Workflow
-
-This skill is always **SEQUENTIAL** (single-thread). No parallel workers needed.
 
 ### Step 1 — Input verification
 
@@ -190,7 +193,7 @@ KServe handles claims processing and customer service for BFSI companies. We com
 
 I know ICICI Group has historically preferred in-house operations. That's fair. What I'm suggesting is a small pilot — one process, measurable KPIs, 90 days. If it works, you scale. If it doesn't, there's no disruption.
 
-If this sounds relevant, reply and I'll share a one-page pilot proposal tailored to ICICI Lombard's claims volume.
+If this sounds relevant, reply and I'll share more details.
 
 Best,
 [Your Name]
