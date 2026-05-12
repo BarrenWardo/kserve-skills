@@ -44,8 +44,8 @@ The skill requires the following in context:
    - Step 7B (Job Postings — hiring pressure signals)
    - Step 8 (Reviews & Reputation — complaint themes, pain point evidence)
    - Step 10 (KServe Services Fit — which services match)
-    - Step 10B (ICP Score — priority tier)
-    - Step 15 (BD Intelligence Briefing — Section E: Next Best Action for recommended outreach sequence)
+   - Step 10B (ICP Score — priority tier)
+   - Step 15 (BD Intelligence Briefing — Section E: Next Best Action for recommended outreach sequence)
 2. **Contact details** — verified emails for decision-makers (from Apollo people-enrichment or other source)
 
 If these are not present in context, the skill asks the user to provide them before proceeding.
