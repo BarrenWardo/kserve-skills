@@ -87,11 +87,17 @@
 **Where:** Design doc Architecture, `references/orchestrator.md`
 **Resolution notes:** "State persistence (mid-run resume)" section. Orchestrator writes `{run-id, sanitized-outputs, wave-status}` to session state after Sanitizer gate 1. On resume, sanitized cache is re-used; only Wave 3 re-spawns.
 
-### [x] #13 Concurrent run safety via run-ID
-**Why:** Two BD ops on same company simultaneously could cross-contaminate via resume detection.
-**Fix:** Scope resume cache by run-ID. Resume only matches its own run-ID; otherwise start fresh.
-**Where:** Design doc Architecture
-**Resolution notes:** `run-id = sha1(company-name + ISO date + user-handle)`. Resume cache keyed by run-ID. Two concurrent runs on same company produce distinct run-IDs (different user-handle); no cross-contamination.
+### [x] #13 Resume safety via explicit user prompt (single-tenant model)
+**Why:** Original framing assumed multi-tenant cache contention; actual deployment is single-tenant (each employee = own AI plan = own filesystem). Real threat = same-user, same-company, same-day re-run across different chat sessions silently picking up stale partial cache.
+**Fix:** Disk cache + explicit resume prompt on §3. User answers y/n to claim or discard the cache. No silent auto-resume.
+**Where:** Design doc State persistence section, `references/orchestrator.md`
+**Resolution notes:** **Reframed (per user follow-up clarifying deployment model):** original run-ID hashing with `user-handle` was over-engineered for the single-tenant deployment. Replaced with:
+- `run-id = sha1(canonical-company-name + start-timestamp-ISO8601)` — internal cache key, not a security boundary. Timestamp prevents collision between a stale partial run and a deliberate fresh run on the same day.
+- Orchestrator at §3 scans `company-research/.state/` for any same-day in-progress cache matching the current company.
+- If found: PROMPT user *"Found in-progress run for `<company>` started at `<HH:MM>` (completed through `<last_wave>`). Resume? [y/n]"*. Yes → load cache, skip done waves, no Sanitizer re-run. No → discard stale cache, start fresh.
+- TTL = 24h. Cross-day resume not supported.
+- **Why explicit prompt:** same user opening a new chat session same day on the same company has ambiguous intent. Auto-resume would silently graft Chat A's partial work into Chat B's "fresh" run. Prompt makes intent explicit, covers both true crash recovery (y) and deliberate re-do (n).
+- Cache file shape documented in design doc; full impl in `references/orchestrator.md`.
 
 ### [x] #14 Split sequential read-chain into phases
 **Why:** 21 sequential reads — agent may reorder, skip, or stop early.

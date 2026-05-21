@@ -116,7 +116,7 @@ company-research-legacy/                # Rollback target — kept for one relea
 | `references/source-priority.md` | Main + step files | Both | Full source priority table |
 | `references/checker-criteria.md` | Wave SKILLs | Parallel | Schema gate + 8 criteria |
 | `references/sanitizer.md` | Main | Both | Sanitizer gate instructions + scope rules |
-| `references/orchestrator.md` | Main | Parallel | Assembly, timeouts, error budget, state persistence, run-ID scoping |
+| `references/orchestrator.md` | Main | Parallel | Assembly, timeouts, error budget, disk-cache state persistence, resume prompt UX |
 | `waveN/SKILL.md` | Main (parallel) | Parallel | Spawn logic, progress board, handoff |
 | `waveN/stepX/SKILL.md` | Worker (parallel) or main (sequential) | Both | Research instructions + output schema |
 | `output/template.md` | Main | Both | Final report template |
@@ -143,8 +143,10 @@ description: [existing trigger phrases — unchanged]
 # §2 Phase 1: Verification
    [search company, present to user, await confirmation]
 
-# §3 Duplicate Run Detection
-   [<24h check; generate run-ID = sha1(company + ISO date + user)]
+# §3 Resume Detection
+   [scan disk cache for in-progress run on this company today;
+    if found, PROMPT user "Resume run from <timestamp>? [y/n]";
+    yes → load cache; no → start fresh, overwrite cache]
 
 # §4 Mode Detection
    Test subagent tool availability:
@@ -160,7 +162,7 @@ description: [existing trigger phrases — unchanged]
    <!-- await Wave 2 complete + Checker-approved -->
    > Read `company-research/references/sanitizer.md` now.
    <!-- Sanitizer gate #1 — scans ALL Wave 1+2 outputs (Steps 2–9, 11–17, 6B) -->
-   <!-- Persist sanitized outputs keyed by run-ID before Wave 3 spawn -->
+   <!-- Persist sanitized outputs to disk cache (keyed by run-id) before Wave 3 spawn -->
    > Read `company-research/wave3/SKILL.md` now.
    <!-- await Wave 3 complete + Checker-approved (Steps 10, 10B, 15) -->
    <!-- Sanitizer gate #2 — re-scans Wave 3 synthesis outputs before assembly -->
@@ -326,7 +328,7 @@ Sanitizer runs **twice** in both modes; failure to scan ALL pre-final outputs le
 | Sanitizer gate #1 | ALL Wave 1 + Wave 2 outputs (Steps 2–9, 11–17, 6B) | Before Wave 3 spawn (parallel) / before Phase C synthesis (sequential) |
 | Sanitizer gate #2 | Wave 3 synthesis outputs (Steps 10, 10B, 15) | Before final assembly in both modes |
 
-`references/sanitizer.md` must document both gates and reject any execution path that reaches `output/template.md` rendering without both gates having run for the current run-ID.
+`references/sanitizer.md` must document both gates and reject any execution path that reaches `output/template.md` rendering without both gates having run for the current run-id.
 
 Additional rules:
 - Gate #2 includes Checker criterion #8 (injection re-check) on synthesis outputs to catch patterns the regex sweep missed.
@@ -367,14 +369,41 @@ Every Worker scrubs its own output **before** returning to the coordinator. This
 
 ### State persistence (mid-run resume)
 
-To prevent re-running Sanitizer over non-deterministic web content on resume:
+To prevent re-running Sanitizer over non-deterministic web content after a crash, partial state is persisted to disk and **explicitly re-claimed by the user** on the next run — no silent auto-resume.
 
-- Every run generates `run-ID = sha1(canonical-company-name + ISO-date + user-handle)` at §3.
-- Sanitized outputs are persisted before Wave 3 spawn under the run-ID (location: platform's session state if available, else `company-research/.state/<run-ID>.json`).
-- On resume, main SKILL.md first checks for persisted state matching the current run-ID. If found, skip re-sanitizing; use cached. If not found, start fresh — never reuse another run's cache.
-- Two BD ops researching the same company simultaneously generate different run-IDs (different user-handle) → no cross-contamination.
+**Deployment assumption:** single-tenant per machine. Each employee runs `company-research` on their own AI plan / own session / own filesystem. Cross-user cache contention does not exist by construction; the threat model is **same-user, same-company, same-day re-runs across different chat sessions or after a crash**.
 
-Full implementation details — including the cache schema and TTL — live in `references/orchestrator.md`.
+**Run-id (internal cache key, not a security boundary):**
+- `run-id = sha1(canonical-company-name + start-timestamp-ISO8601)` generated at §3.
+- Timestamp (not just date) ensures a deliberate fresh run never collides with a stale partial run from the same day.
+
+**Resume flow:**
+1. At §3, orchestrator scans `company-research/.state/` for any in-progress cache file whose `company` field matches the current canonical name AND whose `started_at` is on the current ISO date.
+2. If a match is found, orchestrator **prompts the user**:
+   *"Found in-progress run for `<company>` started at `<HH:MM>` (completed through `<last_wave>`). Resume? [y/n]"*
+3. **Yes** → load cache, skip already-completed waves, continue from the next wave. Reuses sanitized outputs verbatim — no Sanitizer re-run.
+4. **No** → discard the stale cache file, start a fresh run, generate a new `run-id` from the current timestamp, overwrite on first wave completion.
+5. **No match** → start fresh, no prompt.
+
+**Cache file shape** (`company-research/.state/<run-id>.json`):
+```json
+{
+  "run_id": "<sha1-hex>",
+  "company": "<canonical-name>",
+  "started_at": "2026-05-21T10:00:00Z",
+  "last_wave_completed": "wave2",
+  "sanitized_outputs": [ /* per-step output envelopes */ ]
+}
+```
+
+**TTL:** cache files older than 24 hours are ignored on scan (never auto-resumed) and may be garbage-collected. A cross-day resume requires the user to start a fresh run — same-day partial work is the only resume case supported.
+
+**Why explicit prompt, not silent auto-resume:**
+- Same user, same company, same day, **different chat session** = ambiguous intent. Auto-resume would silently graft yesterday's-Chat-A partial work onto today's-Chat-B fresh run. Prompt makes intent explicit.
+- After a true crash recovery, the user answers "y" and gets resume.
+- For a deliberate re-do (e.g., refreshing data after an upstream source updated), the user answers "n" and gets a clean run.
+
+Full implementation details — cache scan algorithm, prompt text, garbage-collection schedule — live in `references/orchestrator.md`.
 
 ---
 
