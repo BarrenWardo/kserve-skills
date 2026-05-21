@@ -33,7 +33,7 @@
 **Why:** Steps 11–17 are Wave 1 Workers. Sanitizer runs between Wave 2 and Wave 3. Their outputs reach final report WITHOUT scan — silent injection-defense regression.
 **Fix:** Sanitizer scans Wave 1+2 outputs (all 17) before Wave 3 AND before assembly. Document explicitly.
 **Where:** Design doc §3 (mode dispatch), `references/sanitizer.md`
-**Resolution notes:** Design doc now has "Sanitizer scope (explicit)" section with two-gate table: Gate 1 = before Wave 3 spawn (all Wave 1+2 outputs, all 17 steps), Gate 2 = before final assembly (Wave 3 synthesis outputs). No untrusted content reaches the final report unscanned.
+**Resolution notes:** Design doc now has "Sanitizer scope (explicit)" section with two-gate table: Gate 1 = before Wave 3 spawn (all Wave 1+2 outputs, all 17 steps), Gate 2 = before final assembly (Wave 3 synthesis outputs). No untrusted content reaches the final report unscanned. **Three-layer defense (per user request):** (1) Worker self-sanitize — every Worker scrubs own `data`+`notes` via LLM-heuristic checklist in `references/sanitizer.md` §Self-sanitize before returning, flags via `notes.sanitized: true`; (2) Sanitizer gate #1 — deterministic regex on all Wave 1+2 outputs before Wave 3; (3) Sanitizer gate #2 — regex re-check + Checker criterion #8 on Wave 3 synthesis before assembly. Sequential mode applies the same self-sanitize step inline in §6.
 
 ### [x] #5 Specify Wave 2/3 spawn prompt contract
 **Why:** Wave 2 needs Step 6+8 outputs; Wave 3 needs sanitized 2–9. Design references "Spawn prompt template" but never specifies data-threading contract.
