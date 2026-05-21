@@ -397,13 +397,18 @@ Mode is chosen ONCE at start. No silent mid-run degradation.
 
 ### Timeouts (authoritative — `references/orchestrator.md` cites these)
 
-| Scope | Limit |
-|---|---|
-| Wave 1 (15 workers) | 25 minutes total |
-| Wave 2 (2 workers) | 10 minutes total |
-| Wave 3 (3 workers) | 10 minutes total |
-| Per-Worker | 8 minutes |
-| Sanitizer gate (per gate) | 3 minutes |
+Workers use a **two-timer model** to distinguish "hung" from "slow." A slow-but-working Worker keeps emitting tool calls; a hung Worker stops. The no-progress timer catches genuine hangs in 2 min; the wall-clock backstop catches pathological cases.
+
+| Scope | Limit | Type |
+|---|---|---|
+| Wave 1 (15 workers) | 25 minutes total | wall-clock backstop |
+| Wave 2 (2 workers) | 10 minutes total | wall-clock backstop |
+| Wave 3 (3 workers) | 10 minutes total | wall-clock backstop |
+| Per-Worker — no-progress | 2 minutes since last tool-call return | **primary** — fires when Worker is actually hung |
+| Per-Worker — total wall-clock | 8 minutes | backstop for pathological cases |
+| Sanitizer gate (per gate) | 3 minutes | wall-clock |
+
+**Per-Worker rule:** Worker is killed and marked `RETRY_EXHAUSTED` if EITHER timer trips (whichever fires first). The no-progress timer resets on every tool-call return, so a slow-but-progressing Worker can legitimately run past 8 min only if its individual tool calls each return within 2 min — which is the working definition of "making progress."
 
 Timeouts apply only in parallel mode. Sequential mode has no enforced timeout — agent runs to completion.
 

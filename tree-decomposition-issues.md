@@ -55,7 +55,7 @@
 **Why:** "Reasonable timeout" referenced but never quantified. Hung Worker blocks indefinitely.
 **Fix:** Wave 1 = 25 min, Wave 2 = 10 min, Wave 3 = 10 min, per-Worker = 8 min. Document in `references/orchestrator.md`.
 **Where:** Design doc Hard-Fail section, `references/orchestrator.md`
-**Resolution notes:** "Timeouts (authoritative)" table added: Wave 1 = 25 min, Wave 2 = 10 min, Wave 3 = 10 min, per-Worker = 8 min, Sanitizer = 3 min. Hung worker → orchestrator records `RETRY_EXHAUSTED` and applies error budget.
+**Resolution notes:** "Timeouts (authoritative)" table added: Wave 1 = 25 min, Wave 2 = 10 min, Wave 3 = 10 min, per-Worker = 8 min, Sanitizer = 3 min. Hung worker → orchestrator records `RETRY_EXHAUSTED` and applies error budget. **Two-timer model (per user follow-up):** per-Worker uses no-progress timer (2 min since last tool-call return, primary — catches genuine hangs) plus 8-min wall-clock backstop. Worker killed if either fires. Slow-but-progressing Workers (each tool call returns within 2 min) are NOT killed by the 8-min backstop — eliminates false-positive RETRY_EXHAUSTED on slow LLM/network days.
 
 ### [x] #8 Define error budget for RETRY_EXHAUSTED
 **Why:** Run continues regardless of how many steps exhaust retries. Currently no threshold.
