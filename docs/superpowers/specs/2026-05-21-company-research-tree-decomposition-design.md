@@ -121,7 +121,7 @@ company-research-legacy/                # Rollback target — kept for one relea
 | `waveN/stepX/SKILL.md` | Worker (parallel) or main (sequential) | Both | Research instructions + output schema |
 | `output/template.md` | Main | Both | Final report template |
 | `wave3/step15-bd-briefing/SKILL.md` | Wave 3 worker (parallel) or main (sequential) | Both | BD briefing synthesis rules |
-| `output-schemas.json` | Wave SKILLs + cold-email | Both | Machine-readable schema registry |
+| `output-schemas.json` | Wave SKILLs (runtime envelope validation only) | Both | Machine-readable schema registry — internal use; NOT consumed by cold-email or any sibling skill |
 | `dependencies.yaml` | Main (init) | Both | Step dependency DAG |
 | `scripts/score-icp.ts` | Step 10B worker | Both | Executable ICP formula |
 | `scripts/format-report.ts` | Main | Both | Report assembly template |
@@ -416,8 +416,8 @@ Timeouts apply only in parallel mode. Sequential mode has no enforced timeout �
 
 Per run (across all waves):
 
-- **0–3 RETRY_EXHAUSTED:** Run continues. Report renders with DATA QUALITY footer noting each gap.
-- **>3 RETRY_EXHAUSTED:** **HARD-FAIL** with message: *"Preliminary Report — too many data gaps (N steps exhausted retries). Do not use for BD outreach without manual review."* Render whatever was collected, prepend the warning, mark report `PRELIMINARY`.
+- **0–5 RETRY_EXHAUSTED:** Run continues. Report renders with DATA QUALITY footer noting each gap.
+- **>5 RETRY_EXHAUSTED:** **HARD-FAIL** with message: *"Preliminary Report — too many data gaps (N steps exhausted retries). Do not use for BD outreach without manual review."* Render whatever was collected, prepend the warning, mark report `PRELIMINARY`.
 
 ---
 
@@ -447,9 +447,10 @@ Follow `company-research/ADD_STEP.md`. Authoritative checklist:
 3. Add node + edges to `dependencies.yaml`.
 4. Register worker in `waveN/SKILL.md`'s "Workers in this wave" table.
 5. If consumed by Wave 3 synthesis: update Step 10/10B/15 input declarations.
-6. If consumed by cold-email: update cold-email's input-requirement schema reference.
-7. Run `scripts/validate-deps.sh` (must pass) and `scripts/lint-trust-preamble.sh` (must pass).
-8. Add an acceptance test to confirm Worker output passes Checker + Sanitizer.
+6. Run `scripts/validate-deps.sh` (must pass) and `scripts/lint-trust-preamble.sh` (must pass).
+7. Add an acceptance test to confirm Worker output passes Checker + Sanitizer.
+
+> Note: cold-email or other sibling skills are intentionally NOT in this checklist. They must tolerate company-research output by parsing the rendered Markdown report defensively. See "Out of scope" below.
 
 ### Adding a new wave (e.g., Wave 4)
 1. Create `wave4/SKILL.md` coordinator from canonical template.
@@ -504,11 +505,21 @@ The detailed sequencing, file-by-file content extraction rules, and verification
 
 ## Open Questions
 
-1. **Should the existing `outreach-email/cold-email` skill's hardcoded references to `company-research` output sections still match the new step-file output schemas?** — Yes. cold-email is updated to read `output-schemas.json` as the canonical reference for available fields. Verify during implementation.
+1. **Should `outreach-email/cold-email` or other sibling skills depend on `output-schemas.json` to discover available fields?** — **No.** `output-schemas.json` is INTERNAL to `company-research` — used only for Worker output-envelope validation at runtime. Cold-email and any other consumer skills MUST parse the rendered Markdown report defensively (graceful handling of missing sections, no hardcoded field-name dependencies on this skill's internals). This decouples sibling-skill lifecycles from internal step refactors.
 
 2. **Does `package.json`'s current `files: ["*/**"]` glob include nested directories?** — Yes, verified. Confirmed via `npm pack` enumeration during implementation.
 
 3. **Should `references/research-principles.md` be promoted to a top-level shared file across skills?** — Defer to a follow-up; out of scope for this restructure.
+
+---
+
+## Out of Scope
+
+Explicitly NOT covered by this design:
+
+- **Cold-email or other sibling-skill integration via `output-schemas.json`.** The schema registry is an internal contract between `company-research`'s parent SKILL.md, wave coordinators, and Workers — it is not a cross-skill contract. Sibling skills (cold-email, outreach, etc.) must consume the rendered Markdown report defensively. They MUST NOT read `output-schemas.json`, and breaking changes to that file do not require coordinated updates in sibling skills.
+- **Refactoring `outreach-email/cold-email` to track step-file output changes.** Cold-email's existing hardcoded section names are tolerated as a soft dependency on the rendered report's surface form; if a section is renamed in this restructure, cold-email may degrade gracefully (skip the section) but the restructure is not blocked on coordinated cold-email edits.
+- **Promoting any reference file to a cross-skill shared location.** All `references/*` files remain scoped under `company-research/`.
 
 ---
 
@@ -527,5 +538,5 @@ The detailed sequencing, file-by-file content extraction rules, and verification
 - **Trigger-matching acceptance test:** On each target platform (Claude Code, OpenCode, Codex), the prompts `"research <company>"`, `"do a deep dive on <company>"`, and `"build me a BD intel report on <company>"` all trigger the `company-research` skill (not a child sub-skill, not nothing). Documented test runs attached to PR.
 - Rollback path verified: installing `--skill company-research-legacy` on a fresh machine reproduces the pre-decomposition behavior.
 - Sanitizer gates #1 and #2 both run for every successful report (verified via instrumented test run logs).
-- Error budget enforcement verified: a synthetic run with 4 RETRY_EXHAUSTED steps produces the `PRELIMINARY` report with HARD-FAIL banner.
+- Error budget enforcement verified: a synthetic run with 6 RETRY_EXHAUSTED steps produces the `PRELIMINARY` report with HARD-FAIL banner.
 - Run-ID isolation verified: two simultaneous runs of the same company by different users produce two independent cache entries; neither contaminates the other.

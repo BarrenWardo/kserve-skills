@@ -59,9 +59,9 @@
 
 ### [x] #8 Define error budget for RETRY_EXHAUSTED
 **Why:** Run continues regardless of how many steps exhaust retries. Currently no threshold.
-**Fix:** ≤3 RETRY_EXHAUSTED in Wave 1 = proceed; >3 = halt with "Preliminary Report — too many data gaps, do not use for BD outreach."
+**Fix:** ≤5 RETRY_EXHAUSTED across all waves = proceed; >5 = halt with "Preliminary Report — too many data gaps, do not use for BD outreach."
 **Where:** Design doc Hard-Fail section
-**Resolution notes:** "Error budget (RETRY_EXHAUSTED threshold)" section: 0–3 exhausted across all waves → proceed with `[DATA GAP]` markers; >3 → HARD-FAIL with "PRELIMINARY REPORT — too many data gaps, DO NOT USE for BD outreach" banner at top of report.
+**Resolution notes:** "Error budget (RETRY_EXHAUSTED threshold)" section: 0–5 exhausted across all waves → proceed with `[DATA GAP]` markers; >5 → HARD-FAIL with "PRELIMINARY REPORT — too many data gaps, DO NOT USE for BD outreach" banner at top of report. **Threshold raised from 3 to 5 (per user follow-up):** allows up to ~26% of the 19 steps (5/19) to gap before HARD-FAIL — better tolerance for transient web/source failures on a 19-worker tree while still preserving the safety net for systemic collapse. Acceptance Criteria updated: synthetic run uses 6 RETRY_EXHAUSTED steps to verify the HARD-FAIL banner.
 
 ### [x] #9 Define rollback path
 **Why:** If tree deployment fails in production, BD ops have no documented recovery.
@@ -69,11 +69,11 @@
 **Where:** Design doc, README, repo structure
 **Resolution notes:** "Rollback Path" section added. `company-research-legacy/SKILL.md` retains the 1,295-line monolith for one release cycle. README install snippet: `npx skills add KServe-FMS/skills --skill company-research-legacy`.
 
-### [x] #10 Add output schema registry
-**Why:** cold-email hardcodes step section names. No machine-checkable schema = silent drift.
-**Fix:** `company-research/output-schemas.json` with formal field definitions per step. Validation script in `scripts/validate-output.ts` checks against registry. cold-email reads registry on load.
+### [x] #10 Add output schema registry (INTERNAL ONLY — no sibling-skill coupling)
+**Why:** Worker output envelopes (`{step, status, data, sources, confidence, notes}`) need a machine-checkable contract so that (a) Checker can validate envelope shape, (b) Wave coordinators can safely inline upstream outputs into downstream spawn prompts, (c) dependency graph (issue #19) has a typed reference target.
+**Fix:** `company-research/output-schemas.json` with formal field definitions per step. Validation script in `scripts/validate-output.ts` checks Worker envelopes against registry at runtime (Checker loop) and at CI.
 **Where:** Design doc Architecture + new file
-**Resolution notes:** File tree adds `company-research/output-schemas.json` + `scripts/validate-output.ts`. Schema defines per-step field names, types, required flags. cold-email skill consumes registry instead of hardcoded section names. Drift caught at CI.
+**Resolution notes:** **Reframed (per user pushback):** the schema registry is **INTERNAL ONLY** — used by `company-research`'s own parent SKILL.md, wave coordinators, and Workers for runtime envelope validation. It is **NOT** a cross-skill contract. Cold-email and any other sibling skills MUST parse the rendered Markdown report defensively (graceful handling of missing/renamed sections); they MUST NOT depend on `output-schemas.json`. Design doc updates: (1) Open Question #1 rewritten — cold-email parses Markdown defensively, no schema dependency; (2) new "Out of Scope" section — sibling-skill integration via `output-schemas.json` explicitly excluded, cold-email refactor explicitly excluded; (3) Used-by table — `output-schemas.json` labeled "Wave SKILLs (runtime envelope validation only); NOT consumed by cold-email or any sibling skill"; (4) ADD_STEP checklist — cold-email touchpoint removed (was item 6); explicit note appended that sibling skills are intentionally not in the checklist. **Why this matters:** decouples sibling-skill lifecycles from internal step refactors. Adding/renaming a step in `company-research` no longer requires coordinated edits in cold-email or other downstream skills — they tolerate the change via defensive Markdown parsing. Job 2 of the schema registry (internal envelope validation) is preserved because it's load-bearing for issues #5 (envelope contract), #19 (dependency graph), the Spawn prompt template, and the Wave coordinator Checker loop.
 
 ### [x] #11 Enforce trust-boundary preamble per step
 **Why:** Future step files can be added without the "Content trust boundary" preamble — silent injection-defense regression.
