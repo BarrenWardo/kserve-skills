@@ -53,46 +53,13 @@ APOLLO_API_KEY=<your-apollo-io-api-key>
 
 ## `company-research`
 
-### How to use
+Deep BD-grade research report on any target company (financials, leadership, hiring, tech stack, competitors, outsourcing exposure, KServe service fit, ICP score, BD briefing). Triggers on phrases like `research <company>`, `deep dive on <company>`, `BD intel on <company>`.
 
-Once installed, just ask naturally in any supported AI platform:
+Structure: parent SKILL + 3 wave coordinators + 20 step files + reference files + scripts. See `company-research/ADD_STEP.md` for how to add a step.
 
-- `"Research Reliance Retail for BD"`
-- `"Look up Bajaj Finance — potential outsourcing client"`
-- `"Do a BD profile for Zepto, their website is zepto.co"`
-- `"Get me info on this company: www.meesho.com"`
-- `"Check out HDFC Ergo for a KServe pitch"`
+Platforms: parallel mode requires a subagent dispatch tool (Claude Code, OpenCode, Codex). Sequential mode (fallback) works on any platform with a filesystem.
 
-The skill confirms the right company with you first, then runs the full research automatically.
-
-## What you get
-
-A structured BD intelligence report covering 20 sections:
-
-| Section | What it contains |
-|---|---|
-| ✅ Verification | Confirmed company identity before research begins |
-| 📋 Line of Business | Industry, business model (B2B/B2C/B2G), key segments |
-| 💰 Turnover | Revenue in ₹ Crores with financial year and MCA source |
-| 📍 Head Office | Registered address (MCA) cross-referenced with operating address |
-| 📅 Years in Existence | Incorporation year and company age |
-| 👔 Directors | MCA-verified names, DINs, LinkedIn profiles, and BD-relevant decision-makers (★-flagged) |
-| 🧑‍💼 Decision-Maker Dossiers | 3-line brief per ★-flagged director: background, LinkedIn activity, likely first objection |
-| 🗺️ Branches & Offices | Location count, key cities, international presence |
-| 💼 Job Postings | Active roles as outsourcing intent signals — functions hiring, KServe-relevant openings, BD signal |
-| 🛠️ Technology Stack | CRM, support tool, review management tool, and marketing automation detected via BuiltWith/job postings |
-| ⭐ Reviews & Reputation | Five sub-sections: Product reviews, Service reviews, Employee reviews, General reputation, and Review Handling Methodology — each with sentiment trend (Improving/Worsening/Stable) |
-| 🎯 Overall Rating | Synthesized reputation score (1–10) with rationale and sample size caveat |
-| 🤝 KServe Fit | 3–5 services ranked HIGH/MEDIUM fit with explicit evidence; excluded services noted with reason |
-| 📈 ICP Score | Scored 0–100 across 10 dimensions; Tier 1–3 classification with recommended action |
-| 📞 Customer Care | Published support number (or absence as a BD signal) |
-| 📱 Social Media | Follower counts and platform-calibrated engagement signal |
-| 📊 Tracxn / Funding Profile | Tracxn score, Crunchbase employee count, per-round funding timeline, investor tier classification |
-| 🔀 M&A, Funding & Ownership | Recent acquisitions, PE ownership structure, GeM supplier status, fund vintage BD signal |
-| 🧠 BD Briefing | Things to know, conversation starters, trigger signals, objection responses, and Next Best Action |
-| 📝 Data Quality | Per-field confidence (HIGH/MED/LOW), source dates, data gaps |
-
-Every data point includes a source URL and freshness timestamp. High-stakes fields (turnover, directors) are MCA-verified.
+Install: `npx skills add KServe-FMS/skills --skill company-research`
 
 ---
 
@@ -165,6 +132,16 @@ The skill reads the company research and DM dossiers from context, identifies th
 A company research report (from `company-research` skill) and verified DM emails (from `apollo` skill).
 
 ---
+
+## Rollback
+
+If the tree decomposition of `company-research` (added 2026-05-22) causes regressions, install the pre-decomposition monolith:
+
+```bash
+npx skills add KServe-FMS/skills --skill company-research-legacy
+```
+
+`company-research-legacy` registers under a distinct name so it never collides with the new tree's trigger phrases. It will be removed in the release following confirmation that the new tree is stable.
 
 ## Adding New Skills
 
