@@ -97,7 +97,7 @@ To prevent re-running Sanitizer over non-deterministic web content after a crash
 4. **No** → discard the stale cache file, start a fresh run, generate a new `run-id` from the current timestamp, overwrite on first wave completion.
 5. **No match** → start fresh, no prompt.
 
-**Cache file shape** (`company-research/.state/<run-id>.json`):
+**Cache file shape** — one file per run, written under `company-research/.state/` and named `<run-id>.json`:
 ```json
 {
   "run_id": "<sha1-hex>",
