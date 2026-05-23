@@ -1,0 +1,28 @@
+TRIGGER-MATCHING MATRIX — DEFERRED TO MANUAL POST-DEPLOY VERIFICATION
+Date: 2026-05-23
+Status: DEFERRED
+
+Reason: live platform sessions (Claude Code, OpenCode, Codex, Claude.ai) cannot be spawned
+programmatically from within this implementation session. Trigger matching requires a fresh
+platform session to observe which skill the platform invokes in response to the probe prompts.
+
+Manual testing checklist (to be completed by BD team or QA before declaring stable):
+
+Platform     | Prompt                                      | Expected skill   | Result
+-------------|---------------------------------------------|------------------|-------
+Claude Code  | research Tata Consultancy Services          | company-research | [ ]
+Claude Code  | do a deep dive on Tata Consultancy Services | company-research | [ ]
+Claude Code  | build me a BD intel report on TCS           | company-research | [ ]
+OpenCode     | research Tata Consultancy Services          | company-research | [ ]
+OpenCode     | do a deep dive on Tata Consultancy Services | company-research | [ ]
+OpenCode     | build me a BD intel report on TCS           | company-research | [ ]
+Codex        | research Tata Consultancy Services          | company-research | [ ]
+Codex        | do a deep dive on Tata Consultancy Services | company-research | [ ]
+Codex        | build me a BD intel report on TCS           | company-research | [ ]
+
+Pass criterion per row: invoked skill = company-research (NOT a child step file, NOT nothing,
+NOT a sibling skill like outreach-email).
+
+If any row fails: fix company-research/SKILL.md description: field and re-run failing row.
+
+See also: trigger-matrix-claudeai-decision.txt for Claude.ai deferral rationale.

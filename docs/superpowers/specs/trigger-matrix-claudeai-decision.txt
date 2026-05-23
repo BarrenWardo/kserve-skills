@@ -1,0 +1,6 @@
+Date: 2026-05-23
+Claude.ai 4th probe row: deferred (reason: no Claude.ai web session available in this implementation environment)
+
+Decision: trigger-matrix covers Claude Code, OpenCode, Codex.
+Claude.ai sequential-mode trigger test deferred to manual post-deploy verification.
+Revisit when deploying to an environment with Claude.ai web access.
