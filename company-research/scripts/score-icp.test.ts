@@ -35,13 +35,13 @@ describe("scoreICP", () => {
   test("high-fit inputs produce a Tier 1 score (>=75)", () => {
     const r = scoreICP(highFit);
     expect(r.score).toBeGreaterThanOrEqual(75);
-    expect(r.tier).toBe("Tier 1");
+    expect(r.tier).toBe("A");
   });
 
   test("low-fit inputs produce a Deprioritize score (<25)", () => {
     const r = scoreICP(lowFit);
     expect(r.score).toBeLessThan(25);
-    expect(r.tier).toBe("Deprioritize");
+    expect(r.tier).toBe("D");
   });
 
   test("breakdown sums to score", () => {

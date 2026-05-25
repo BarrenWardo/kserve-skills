@@ -12,7 +12,7 @@ export type JobPostings = "active" | "none" | "not-run";
 export type SocialPresence = "active" | "inactive";
 export type DataConfidence = "high" | "mixed" | "low";
 
-export type ICPTier = "Tier 1" | "Tier 2" | "Tier 3" | "Deprioritize";
+export type ICPTier = "A" | "B" | "C" | "D";
 
 export interface ICPInputs {
   industry_match: IndustryMatch;          // Step 2
@@ -66,10 +66,10 @@ export function scoreICP(i: ICPInputs): ICPResult {
 }
 
 function tierOf(score: number): ICPTier {
-  if (score >= 75) return "Tier 1";
-  if (score >= 50) return "Tier 2";
-  if (score >= 25) return "Tier 3";
-  return "Deprioritize";
+  if (score >= 75) return "A";
+  if (score >= 50) return "B";
+  if (score >= 25) return "C";
+  return "D";
 }
 
 if (import.meta.main) {
