@@ -9,11 +9,12 @@ This skill is structured as a tree (parent SKILL.md + 3 wave coordinators + step
 3. **Update** the step pattern regex (`$.definitions.Envelope.properties.step.pattern`) in `output-schemas.json` to include the new step number.
 4. **Add** the step's node + edges in `dependencies.yaml` under `waves.wave<N>`. List every prior-step envelope the new step consumes.
 5. **Register** the worker in `wave<N>/SKILL.md`'s "Workers in this wave" table (path + depends_on).
-6. **If consumed by Wave 3 synthesis** (`step-10`, `step-10b`, `step-15`): update the consumer's `## Inputs` section to declare the new prior-step fields, and update `dependencies.yaml` `depends_on` for that consumer.
-7. **Run** `company-research/scripts/validate-deps.sh` — must exit 0.
-8. **Run** `company-research/scripts/lint-trust-preamble.sh` — must exit 0.
-9. **Run** `bun test company-research/scripts/` — all script tests must still pass.
-10. **Add** an acceptance test on a real or fixture company that exercises the new step end-to-end (Worker output passes Checker + Sanitizer; renders into the final report).
+6. **Update** parent `company-research/SKILL.md` §6 SEQUENTIAL MODE Phase B: add the new step to the appropriate chunk (B1/B2/B3) and update the step count header (e.g., "18 steps").
+7. **If consumed by Wave 3 synthesis** (`step-10`, `step-10b`, `step-15`): update the consumer's `## Inputs` section to declare the new prior-step fields, and update `dependencies.yaml` `depends_on` for that consumer.
+8. **Run** `company-research/scripts/validate-deps.sh` — must exit 0.
+9. **Run** `company-research/scripts/lint-trust-preamble.sh` — must exit 0.
+10. **Run** `bun test company-research/scripts/` — all script tests must still pass.
+11. **Add** an acceptance test on a real or fixture company that exercises the new step end-to-end (Worker output passes Checker + Sanitizer; renders into the final report).
 
 > Note: cold-email and other sibling skills are intentionally NOT in this checklist. They must tolerate company-research output by parsing the rendered Markdown report defensively. `output-schemas.json` is INTERNAL to this skill.
 
@@ -76,7 +77,7 @@ Markdown block as it appears in the final report.
 4. Update `output-schemas.json`'s `$.definitions.Envelope.properties.step.pattern` to include `18`.
 5. Register in `wave1/SKILL.md`'s workers table.
 6. If consumed by step-15 (BD briefing): add `step-18` to step-15's `depends_on` and to its `## Inputs` declaration.
-7. Run validators (Steps 7 and 8 of the checklist).
+7. Run validators (Steps 8 and 9 of the checklist).
 8. Add an acceptance test.
 9. Open a PR.
 
