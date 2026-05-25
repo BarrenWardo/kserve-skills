@@ -4,7 +4,7 @@
 export type IndustryMatch = "exact" | "adjacent" | "none";
 export type RevenueBand = "50-500" | "10-50" | "500-2000" | "lt-10" | "gt-5000" | "not-disclosed";
 export type HeadcountBand = "50-2000" | "lt-50" | "2000-5000" | "gt-5000" | "unknown";
-export type PainPointEvidence = "high-fit" | "medium-fit" | "none";
+export type PainPointEvidence = "high-fit" | "medium-fit" | "none" | "parallel-unavailable";
 export type ReviewQuality = "1-4" | "5-6" | "7-10" | "na";
 export type GrowthSignal = "active" | "stable" | "contraction";
 export type DMAccess = "accessible" | "none";
@@ -40,7 +40,7 @@ const REVENUE: Record<RevenueBand, number> = {
 const HEADCOUNT: Record<HeadcountBand, number> = {
   "50-2000": 10, "lt-50": 5, "2000-5000": 5, "gt-5000": 2, "unknown": 2,
 };
-const PAIN: Record<PainPointEvidence, number> = { "high-fit": 15, "medium-fit": 8, "none": 0 };
+const PAIN: Record<PainPointEvidence, number> = { "high-fit": 15, "medium-fit": 8, "none": 0, "parallel-unavailable": 0 };
 const REVIEW: Record<ReviewQuality, number> = { "1-4": 10, "5-6": 7, "7-10": 3, "na": 4 };
 const GROWTH: Record<GrowthSignal, number> = { "active": 10, "stable": 5, "contraction": 2 };
 const DM: Record<DMAccess, number> = { "accessible": 10, "none": 3 };

@@ -45,6 +45,6 @@ waves:
     - step: step-10
       depends_on: [step-2, step-7c, step-16]
     - step: step-10b
-      depends_on: [step-2, step-3, step-5, step-7, step-7b, step-9, step-14]
+      depends_on: [step-2, step-3, step-5, step-6, step-7, step-7b, step-9, step-12, step-14]
     - step: step-15
       depends_on: [step-2, step-3, step-6b, step-8, step-9, step-10, step-10b, step-14, step-16, step-17]
