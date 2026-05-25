@@ -1,12 +1,12 @@
 # Orchestrator — Assembly, Timeouts, Error Budget, Resume
 
-After all 19 Workers complete and each Checker has approved (19 = 15 Wave 1 Workers [Steps 2, 3, 4, 5, 6, 7, 7B, 7C, 8, 11, 12, 13, 14, 16, 17] + 2 Wave 2 Workers [Steps 6B + 9] + 2 Wave 3 Workers [Steps 10 + 10B]):
+After all 20 Workers complete and each Checker has approved (20 = 15 Wave 1 Workers [Steps 2, 3, 4, 5, 6, 7, 7B, 7C, 8, 11, 12, 13, 14, 16, 17] + 2 Wave 2 Workers [Steps 6B + 9] + 3 Wave 3 Workers [Steps 10 + 10B + 15]):
 
 **Pre-assembly completeness checklist.** Before assembling the final report, verify all of the following:
 
 | Check | Pass condition |
 |---|---|
-| All 19 Workers present | Outputs from Wave 1 (Steps 2, 3, 4, 5, 6, 7, 7B, 7C, 8, 11, 12, 13, 14, 16, 17) + Wave 2 (Steps 6B, 9) + Wave 3 (Steps 10, 10B) all present |
+| All 20 Workers present | Outputs from Wave 1 (Steps 2, 3, 4, 5, 6, 7, 7B, 7C, 8, 11, 12, 13, 14, 16, 17) + Wave 2 (Steps 6B, 9) + Wave 3 (Steps 10, 10B, 15) all present |
 | Wave sequencing correct | Wave 2 ran after Wave 1 fully complete; Wave 3 ran after Sanitizer complete |
 | No pending steps | No step output is blank, "TBD", or "pending" without a ⚠️ flag or RETRY_EXHAUSTED signal |
 | RETRY_EXHAUSTED collected | All exhausted-retry signals from Checkers are logged — none silently dropped |
@@ -15,7 +15,7 @@ After all 19 Workers complete and each Checker has approved (19 = 15 Wave 1 Work
 If any check fails: resolve before rendering. If a step is genuinely missing and cannot be recovered, add a ⚠️ note in its section and proceed.
 
 1. Assemble all approved sections into the Output Format template in order
-2. **Before assembling Steps 10 & 10B (KServe Fit + ICP Score):** verify the Sanitizer gate completed and sanitized outputs from ALL of Steps 2–9 are present. If Wave 3 Workers ran before the Sanitizer completed, discard those outputs and re-request with the full sanitized context.
+2. **Before assembling Steps 10, 10B & 15 (KServe Fit + ICP Score + BD Briefing):** verify the Sanitizer gate completed and sanitized outputs from ALL of Steps 2–9 are present. If Wave 3 Workers ran before the Sanitizer completed, discard those outputs and re-request with the full sanitized context.
 3. Validate: no field is blank, pending, or "TBD" without a "Not publicly available" statement or a ⚠️ flag
 4. If any section is missing or incomplete, return to that step's Checker with a re-request before rendering
 5. Collect all `RETRY_EXHAUSTED` signals received from Checkers. If any exist, populate the "Data gaps" line in the 📝 DATA QUALITY footer with: `[Step N — field] — [reason]` for each one. If none, write "None".
