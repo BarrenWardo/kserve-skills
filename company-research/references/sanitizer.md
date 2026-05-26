@@ -28,7 +28,7 @@ The Sanitizer runs once as a gate between Wave 2 and Wave 3.
 
 | Gate | Scope (inputs scanned) | Trigger |
 |---|---|---|
-| Sanitizer gate #1 | ALL Wave 1 + Wave 2 outputs (Steps 2–9, 11–17, 6B) | Before Wave 3 spawn (parallel) / before Phase C synthesis (sequential) |
+| Sanitizer gate #1 | ALL Wave 1 + Wave 2 outputs (Steps 2–9, 11–14, 16–17, 6B) | Before Wave 3 spawn (parallel) / before Phase C synthesis (sequential) |
 | Sanitizer gate #2 | Wave 3 synthesis outputs (Steps 10, 10B, 15) | Before final assembly in both modes |
 
 The report renderer MUST refuse to assemble `output/template.md` for a given `run-id` unless BOTH gates have run for that run-id and recorded their completion in the state-cache file. Gate #2 additionally invokes Checker criterion #8 (injection re-check) on synthesis outputs.
