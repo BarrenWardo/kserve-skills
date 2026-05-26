@@ -20,15 +20,18 @@ describe("formatReport", () => {
     expect(out).toContain("Retail — E-commerce");
   });
 
-  test("leaves DATA QUALITY footer placeholder if no gaps", () => {
+  test("renders DATA QUALITY footer with no-gap defaults", () => {
     const out = formatReport({ company: "Acme", envelopes: minimalEnvelopes, template: `{{data_quality_footer}}` });
-    expect(out).toBe("");
+    expect(out).toContain("**Data gaps:** None");
+    expect(out).toContain("**Security events:** None");
+    expect(out).toContain("**Overall confidence:**");
   });
 
-  test("renders RETRY_EXHAUSTED steps into DATA QUALITY footer", () => {
+  test("renders RETRY_EXHAUSTED steps and security events into DATA QUALITY footer", () => {
     const withGap: Envelope[] = [...minimalEnvelopes, { step: "step-3", status: "RETRY_EXHAUSTED", data: {}, sources: [], confidence: "low", notes: "no public turnover data" }];
-    const out = formatReport({ company: "Acme", envelopes: withGap, template: `{{data_quality_footer}}` });
+    const out = formatReport({ company: "Acme", envelopes: withGap, template: `{{data_quality_footer}}`, securityEvents: ["INJECTION_FLAGGED: step-2 — Glassdoor"] });
     expect(out).toMatch(/step-3/);
     expect(out).toMatch(/RETRY_EXHAUSTED/);
+    expect(out).toMatch(/INJECTION_FLAGGED/);
   });
 });

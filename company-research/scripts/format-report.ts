@@ -11,9 +11,10 @@ export interface FormatInput {
   company: string;
   envelopes: Envelope[];
   template: string;
+  securityEvents?: string[];
 }
 
-export function formatReport({ company, envelopes, template }: FormatInput): string {
+export function formatReport({ company, envelopes, template, securityEvents }: FormatInput): string {
   let out = template.replaceAll("{{company}}", company);
 
   // Substitute {{step-N.field}} placeholders
@@ -26,12 +27,33 @@ export function formatReport({ company, envelopes, template }: FormatInput): str
   });
 
   // DATA QUALITY footer
-  const gaps = envelopes.filter((e) => e.status === "RETRY_EXHAUSTED");
   if (out.includes("{{data_quality_footer}}")) {
-    const footer = gaps.length === 0
-      ? ""
-      : "## DATA QUALITY\n\n" + gaps.map((g) => `- ${g.step}: RETRY_EXHAUSTED${g.notes ? ` — ${g.notes}` : ""}`).join("\n");
-    out = out.replaceAll("{{data_quality_footer}}", footer);
+    const lines: string[] = [];
+    const gaps = envelopes.filter((e) => e.status === "RETRY_EXHAUSTED");
+    if (gaps.length > 0) {
+      lines.push("**Data gaps:**");
+      gaps.forEach((g) => lines.push(`- ${g.step}: RETRY_EXHAUSTED${g.notes ? ` — ${g.notes}` : ""}`));
+    } else {
+      lines.push("**Data gaps:** None");
+    }
+    const sec = securityEvents ?? [];
+    if (sec.length > 0) {
+      lines.push("**Security events:**");
+      sec.forEach((e) => lines.push(`- ${e}`));
+    } else {
+      lines.push("**Security events:** None");
+    }
+    const tally: Record<string, number> = {};
+    envelopes.forEach((e) => { tally[e.confidence] = (tally[e.confidence] || 0) + 1; });
+    const total = envelopes.length;
+    const tallyStr = Object.entries(tally)
+      .sort((a, b) => b[1] - a[1])
+      .map(([level, count]) => `${count}/${total} ${level.toUpperCase()}`)
+      .join(" · ");
+    lines.push(`**Overall confidence:** ${tallyStr}`);
+    const allDates = envelopes.flatMap((e) => e.sources.map((s) => s.accessed)).filter(Boolean).sort();
+    lines.push(`**Oldest source:** ${allDates.length > 0 ? allDates[0] : "N/A"}`);
+    out = out.replaceAll("{{data_quality_footer}}", lines.join("\n"));
   }
   return out;
 }

@@ -3,7 +3,7 @@
   Substitution syntax (handled by company-research/scripts/format-report.ts):
     {{company}}                — the canonical company name (verified in Phase 1)
     {{step-<id>.<field>}}      — value from envelope step-<id> data.<field>
-    {{data_quality_footer}}    — rendered DATA QUALITY footer (RETRY_EXHAUSTED gaps, sanitizer findings)
+    {{data_quality_footer}}    — rendered DATA QUALITY footer (RETRY_EXHAUSTED gaps, security events, confidence tally, oldest source date)
   Markdown unrecognized as a placeholder passes through verbatim.
 -->
 
