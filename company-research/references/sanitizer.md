@@ -1,10 +1,10 @@
 # Sanitizer Gates
 
-The Sanitizer runs once as a gate between Wave 2 and Wave 3.
+The Sanitizer runs once as a gate between Wave 2 and Wave 3 (PARALLEL mode) or inline before Phase C synthesis (SEQUENTIAL mode).
 
 **When to run:**
 - **PARALLEL mode:** after all Wave 2 Workers (Steps 6B and 9) are Checker-approved, before spawning Wave 3 Workers (Steps 10 and 10B)
-- **SEQUENTIAL mode:** after Step 9 is approved, before Step 10 begins (covers Steps 2–9)
+- **SEQUENTIAL mode:** after Step 9 is approved, before Step 10 begins (covers all 17 Phase-B envelopes)
 
 **What to scan:** All approved Wave 1 + Wave 2 outputs (Steps 2–9, 6B, 11–14, 16–17 — 17 steps total). Note: Step 9's output is a synthesized artifact (scored summary of Step 8 data), not raw third-party content — the scan applies equally but may find lower injection surface.
 
