@@ -22,7 +22,7 @@ export function formatReport({ company, envelopes, template }: FormatInput): str
     if (!env) return `[missing: ${stepId}]`;
     const v = (env.data as Record<string, unknown>)[field];
     if (v === undefined || v === null) return `[missing: ${stepId}.${field}]`;
-    return Array.isArray(v) ? v.join(", ") : String(v);
+    return Array.isArray(v) ? (v.length > 0 && typeof v[0] === "object" ? JSON.stringify(v) : v.join(", ")) : String(v);
   });
 
   // DATA QUALITY footer
