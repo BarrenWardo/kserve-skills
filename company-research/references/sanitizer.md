@@ -46,11 +46,10 @@ The Sanitizer scans `data.*` string fields and the `notes` field of every envelo
 | role-override | `\b(you\s+are\s+now|act\s+as|from\s+now\s+on\s+you\s+are)\s+\S+` |
 | system-token | `(^|\s)(system:|<\|im_start\|>|\[INST\])` |
 | exfil-prompt | `\bsend\s+(your\|the)\s+(secret\|key\|token\|prompt)\s+to\b` |
-| offdomain-image | `!\[[^\]]*\]\((?!https?://(<allowlisted-hosts>))[^)]+\)` |
-| offdomain-link | `\[[^\]]+\]\((?!https?://(<allowlisted-hosts>))[^)]+\)` |
-| base64-blob | `\b[A-Za-z0-9+/]{200,}={0,2}\b` |
+| offdomain-image | `!\[[^\]]*\]\((?!https?://({{ALLOWLISTED_HOSTS}}))[^)]+\)` |
+| offdomain-link | `\[[^\]]+\]\((?!https?://({{ALLOWLISTED_HOSTS}}))[^)]+\)` |
 
-`<allowlisted-hosts>` is the set of hosts appearing in `sources[].url` for the current envelope. Off-domain link patterns are only stripped when the link target's host is not in that set.
+`{{ALLOWLISTED_HOSTS}}` is a **runtime substitution** placeholder — replace with the pipe-joined hostnames from `sources[].url` for the current envelope (e.g., `linkedin\.com|apollo\.io|g2\.com`). Off-domain link patterns are only stripped when the link target's host is not in that set. The placeholder is NOT a valid regex literal — it MUST be filled before execution.
 
 ## Self-sanitize (Worker layer)
 
