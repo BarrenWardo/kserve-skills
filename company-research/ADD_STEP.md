@@ -10,12 +10,13 @@ This skill is structured as a tree (parent SKILL.md + 3 wave coordinators + step
 4. **Add** the step's node + edges in `dependencies.yaml` under `waves.wave<N>`. List every prior-step envelope the new step consumes.
 5. **Add** template tokens for new step fields in `output/template.md` and verify `format-report.ts` renders them correctly (especially array-of-object fields — use `JSON.stringify`).
 6. **Register** the worker in `wave<N>/SKILL.md`'s "Workers in this wave" table (path + depends_on).
-7. **Update** parent `company-research/SKILL.md` §6 SEQUENTIAL MODE Phase B: add the new step to the appropriate chunk (B1/B2/B3) and update the step count header (e.g., "18 steps").
-8. **If consumed by Wave 2 or Wave 3 synthesis** (`step-6b`, `step-9`, `step-10`, `step-10b`, `step-15`): update the consumer's `## Inputs` section to declare the new prior-step fields, and update `dependencies.yaml` `depends_on` for that consumer.
-9. **Run** `company-research/scripts/validate-deps.sh` — must exit 0.
-10. **Run** `company-research/scripts/lint-trust-preamble.sh` — must exit 0.
-11. **Run** `bun test company-research/scripts/` — all script tests must still pass.
-12. **Add** an acceptance test on a real or fixture company that exercises the new step end-to-end (Worker output passes Checker + Sanitizer; renders into the final report).
+7. **Update** `company-research/references/orchestrator.md`: increment worker count in the header (e.g., `21 Workers`), add the step to the worker listing and pre-assembly checklist table, and update the wave timeout table if the wave's worker count changed.
+8. **Update** parent `company-research/SKILL.md` §6 SEQUENTIAL MODE Phase B: add the new step to the appropriate chunk (B1/B2/B3) and update the step count header (e.g., "18 steps").
+9. **If consumed by Wave 2 or Wave 3 synthesis** (`step-6b`, `step-9`, `step-10`, `step-10b`, `step-15`): update the consumer's `## Inputs` section to declare the new prior-step fields, and update `dependencies.yaml` `depends_on` for that consumer.
+10. **Run** `company-research/scripts/validate-deps.sh` — must exit 0.
+11. **Run** `company-research/scripts/lint-trust-preamble.sh` — must exit 0.
+12. **Run** `bun test company-research/scripts/` — all script tests must still pass.
+13. **Add** an acceptance test on a real or fixture company that exercises the new step end-to-end (Worker output passes Checker + Sanitizer; renders into the final report).
 
 > Note: cold-email and other sibling skills are intentionally NOT in this checklist. They must tolerate company-research output by parsing the rendered Markdown report defensively. `output-schemas.json` is INTERNAL to this skill.
 
@@ -85,7 +86,7 @@ Markdown block as it appears in the final report.
 4. Update `output-schemas.json`'s `$.definitions.Envelope.properties.step.pattern` to include `18`.
 5. Register in `wave1/SKILL.md`'s workers table.
 6. If consumed by downstream steps (e.g., step-9, step-15): add `step-18` to the consumer's `depends_on` and to its `## Inputs` declaration.
-7. Run validators (Steps 9 and 10 of the checklist).
+7. Run validators (Steps 10 and 11 of the checklist).
 8. Add an acceptance test.
 9. Open a PR.
 
