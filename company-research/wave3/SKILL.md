@@ -2,8 +2,8 @@
 name: company-research-wave-3-coordinator
 description: >
   Internal wave coordinator for company-research. DO NOT invoke directly. Spawned by the
-  parent SKILL.md after Wave 2 returns. Spawns step-10 in Phase 1, then step-10b + step-15
-  in parallel in Phase 2, runs the Checker loop, then invokes Sanitizer gate #2 before
+  parent SKILL.md after Wave 2 returns. Spawns step-10 in Phase 1, then step-10b in Phase 2,
+  then step-15 in Phase 3, runs the Checker loop, then invokes Sanitizer gate #2 before
   returning to parent.
 ---
 
@@ -40,9 +40,15 @@ Do NOT signal completion until your envelope is valid:
 
 Wait for step-10 to reach terminal status before proceeding to Phase 2.
 
-## Spawn — Phase 2 (step-10b + step-15)
+## Spawn — Phase 2 (step-10b)
 
-After step-10 has terminal status, spawn step-10b and step-15 in parallel with the same prompt template. The prior-envelopes-json now includes step-10 outputs.
+After step-10 has terminal status, spawn step-10b with the same prompt template. The prior-envelopes-json now includes step-10 outputs.
+
+Wait for step-10b to reach terminal status before proceeding to Phase 3.
+
+## Spawn — Phase 3 (step-15)
+
+After step-10b has terminal status, spawn step-15 with the same prompt template. The prior-envelopes-json now includes step-10 and step-10b outputs.
 
 ## Checker loop
 
