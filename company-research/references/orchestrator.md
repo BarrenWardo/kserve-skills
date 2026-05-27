@@ -20,7 +20,7 @@ If any check fails: resolve before rendering. If a step is genuinely missing and
 4. If any section is missing or incomplete, return to that step's Checker with a re-request before rendering
 5. Collect all `RETRY_EXHAUSTED` signals received from Checkers. If any exist, populate the "Data gaps" line in the 📝 DATA QUALITY footer with: `[Step N — field] — [reason]` for each one. If none, write "None".
    Separately, collect all `INJECTION_FLAGGED` signals from Checkers and any "Sanitizer stripped" entries from the Sanitizer. Populate the **Security events** line in the DATA QUALITY footer: list each as `INJECTION_FLAGGED: [Step N — platform]` or `Sanitizer stripped: [Step N — platform]`. If none, write "None".
-6. Tally confidence levels across all 16 sections and populate the "Overall" line in the DATA QUALITY footer (e.g., `9/16 HIGH · 5 MED · 2 LOW`). Find the oldest source date across all sections and populate "Oldest source".
+6. Tally confidence levels across all 19 sections and populate the "Overall" line in the DATA QUALITY footer (e.g., `11/19 HIGH · 5 MEDIUM · 3 LOW`). Find the oldest source date across all sections and populate "Oldest source".
 7. Render the final report for presentation to the user
 
 **Partial-run resume (PARALLEL mode only).** If a PARALLEL run is interrupted mid-wave — connection drop, timeout, platform restart — present the user with a resume summary before restarting:
