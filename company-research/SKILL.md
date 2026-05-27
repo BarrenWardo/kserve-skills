@@ -64,7 +64,7 @@ Please confirm and I'll run the full research.
 Apply the resume-detection algorithm from §"State persistence and resume":
 
 1. Compute canonical name from the company verified in §2.
-2. Scan `company-research/.state/` for any cache file whose `company` field matches AND whose `started_at` is on the current ISO date AND whose age is under 24h.
+2. Scan `company-research/.state/` (if the directory does not exist or the platform lacks filesystem access, skip resume — treat as fresh run) for any cache file whose `company` field matches AND whose `started_at` is on the current ISO date AND whose age is under 24h.
 3. If a match is found, emit the canonical resume prompt from §"Resume prompt UX (canonical wording)" and wait for `y` / `n`.
 4. `y` → load `sanitized_outputs`, skip completed waves, continue from the next wave.
 5. `n` → delete the stale cache file, generate a fresh run-id (`sha1(canonical-name + current-timestamp-ISO8601)`), proceed to §4 mode detection.
@@ -204,6 +204,6 @@ Mode is chosen ONCE at §4. NEVER silently degrade.
 | Worker output malformed after 2 Checker retries | `RETRY_EXHAUSTED`, run continues, footer notes gap | Same |
 | Web search returns 0 results | "Not publicly available", continue | Same |
 | Source priority all 3 tiers exhausted | `RETRY_EXHAUSTED`, continue | Same |
-| File read fails (typo, missing file) | **HARD-FAIL** — skill installation is broken | Same |
+| File read fails (typo, missing file) | **HARD-FAIL** — skill installation is broken. Exception: filesystem error during §3 Resume Detection → skip resume and proceed as fresh run. | Same |
 | Sanitizer detects injection | Strip + log in DATA QUALITY footer, continue | Same |
 | Error budget RETRY_EXHAUSTED > 5 | **HARD-FAIL** with PRELIMINARY banner: *"Preliminary Report — too many data gaps (N steps exhausted retries). Do not use for BD outreach without manual review."* | Same |
