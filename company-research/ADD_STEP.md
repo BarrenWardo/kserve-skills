@@ -16,7 +16,11 @@ This skill is structured as a tree (parent SKILL.md + 3 wave coordinators + step
 10. **Run** `company-research/scripts/validate-deps.sh` — must exit 0.
 11. **Run** `company-research/scripts/lint-trust-preamble.sh` — must exit 0.
 12. **Run** `bun test company-research/scripts/` — all script tests must still pass.
-13. **Add** an acceptance test on a real or fixture company that exercises the new step end-to-end (Worker output passes Checker + Sanitizer; renders into the final report).
+13. **Add** an acceptance test in `company-research/scripts/<step-slug>.test.ts` using `bun:test`:
+     - Define a fixture envelope (inline object matching `output-schemas.json` step-N schema)
+     - Assert `validateEnvelope(fixture).ok === true`
+     - Assert `format-report.ts` renders the new section without `[object Object]`
+     - Run: `bun test company-research/scripts/<test-file>.ts` — must exit 0.
 
 > Note: cold-email and other sibling skills are intentionally NOT in this checklist. They must tolerate company-research output by parsing the rendered Markdown report defensively. `output-schemas.json` is INTERNAL to this skill.
 
@@ -87,7 +91,7 @@ Markdown block as it appears in the final report.
 5. Register in `wave1/SKILL.md`'s workers table.
 6. If consumed by downstream steps (e.g., step-9, step-15): add `step-18` to the consumer's `depends_on` and to its `## Inputs` declaration.
 7. Run validators (Steps 10 and 11 of the checklist).
-8. Add an acceptance test.
+8. Add an acceptance test per item 13 of the checklist.
 9. Open a PR.
 
 ## What you do NOT need to do
