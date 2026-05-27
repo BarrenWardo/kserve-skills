@@ -48,7 +48,7 @@ Compute a scored Ideal Customer Profile rating (0–100) for this company as a K
 - **0–24 — Deprioritize:** Flag to BD manager with rationale; do not assign AE
 
 **Envelope tier mapping (for the JSON `tier` field per `schemas.step-10b`):**
-`A = 75–100 (Priority Tier 1) · B = 50–74 (Tier 2) · C = 25–49 (Tier 3) · D = 0–24 (Deprioritize)`
+`A = 75–100 (Priority Tier 1) · B = 50–74 (Tier 2) · C = 25–49 (Tier 3) · D = 0–24 (Deprioritize — floor 15, scores below 15 impossible without omitted dimensions)`
 
 ## Output schema
 

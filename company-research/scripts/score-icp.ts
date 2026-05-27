@@ -1,5 +1,9 @@
 // Step 10B ICP scorer. Formula extracted verbatim from monolith SKILL.md lines 607–657.
 // Total points 100; ten discrete-band dimensions; tier thresholds 75/50/25.
+// Minimum achievable score: 15 (industry=none 0 + revenue=lt-10 2 + headcount=gt-5000 2
+// + pain=none 0 + review=7-10 3 + growth=contraction 2 + dm=none 3 + jobs=not-run 3
+// + social=inactive 0 + dataconf=low 0). Tier D (0-24) is theoretical — scores below
+// 15 are impossible by construction unless a dimension is omitted.
 
 export type IndustryMatch = "exact" | "adjacent" | "none";
 export type RevenueBand = "50-500" | "10-50" | "500-2000" | "lt-10" | "gt-5000" | "not-disclosed";
