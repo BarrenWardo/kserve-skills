@@ -128,6 +128,8 @@ Three phases with explicit checkpoints. The main agent itself plays Worker + Che
 
 ## Phase B — Research (17 steps, in 3 chunks of ≤7 reads each)
 
+> Read `company-research/references/checker-criteria.md` now.
+
 For each step, in order: (1) read the step file; (2) execute the step instructions, producing an envelope; (3) run the Worker self-sanitize checklist from `references/sanitizer.md` §Self-sanitize on the envelope; (4) apply the inline Checker (criteria from `references/checker-criteria.md`); (5) if 2 retries fail, mark `RETRY_EXHAUSTED` and continue.
 
 Chunk B1 (7 step files — Wave 1 part 1):
