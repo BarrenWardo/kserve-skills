@@ -28,7 +28,7 @@ export interface ICPInputs {
   dm_access: DMAccess;                    // Step 6
   job_postings: JobPostings;              // Step 7B
   social_presence: SocialPresence;        // Step 12
-  data_confidence: DataConfidence;        // Steps 2–9 tally
+  data_confidence: DataConfidence;        // Steps 2–9 tally (includes step-5 years_in_existence)
 }
 
 export interface ICPResult {
