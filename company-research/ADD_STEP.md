@@ -38,6 +38,13 @@ description: >
 
 (None | bullet list of prior-step envelope fields)
 
+## Sources
+
+Try in order:
+1. Primary source
+2. Secondary source
+3. Fallback source
+
 ## Instructions
 
 Research instructions, BD framing, special handling.
