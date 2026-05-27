@@ -41,6 +41,8 @@ Compute a scored Ideal Customer Profile rating (0–100) for this company as a K
 
 **Total: 100 points**
 
+**Mode asymmetry:** In PARALLEL mode, `pain_point_evidence` defaults to 0 (step-10 runs concurrently). In SEQUENTIAL mode, step-10 data is available and `pain_point_evidence` contributes its full 15 points. A company scored in PARALLEL mode will show 0–15 fewer points than the same company scored in SEQUENTIAL mode. The mode is noted in report metadata.
+
 **Tier thresholds (visible labels):**
 - **75–100 — Priority Tier 1:** Assign senior AE; outreach within 48 hours
 - **50–74 — Tier 2:** SDR outreach; standard sequence
