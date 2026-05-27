@@ -130,7 +130,7 @@ Three phases with explicit checkpoints. The main agent itself plays Worker + Che
 
 **CHECKPOINT A:** Confirm both files loaded before continuing.
 
-## Phase B — Research (17 steps, in 3 chunks of ≤7 reads each)
+## Phase B — Research (17 research steps in 3 chunks of ≤7 reads each; 3 synthesis steps follow in Phase C)
 
 > Read `company-research/references/checker-criteria.md` now.
 
@@ -162,7 +162,7 @@ Chunk B3 (3 step files — Wave 1 tail + Wave 2 tail):
 > Read `company-research/wave1/step17-competitive-landscape/SKILL.md` now.
 > Read `company-research/wave2/step9-overall-business-rating/SKILL.md` now.
 
-**CHECKPOINT B:** All 17 step envelopes collected; running error budget recorded.
+**CHECKPOINT B:** All 17 research envelopes collected (3 synthesis steps remain in Phase C — 20 total); running error budget recorded.
 
 ## Phase C — Sanitize, synthesize, assemble (≤7 reads)
 
