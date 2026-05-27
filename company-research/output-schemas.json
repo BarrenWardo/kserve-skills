@@ -19,7 +19,7 @@
       "type": "object",
       "required": ["step", "status", "data", "sources", "confidence"],
       "properties": {
-        "step": { "type": "string", "pattern": "^step-(1|2|3|4|5|6|6b|7|7b|7c|8|9|10|10b|11|12|13|14|15|16|17)$" },
+        "step": { "type": "string", "pattern": "^step-(2|3|4|5|6|6b|7|7b|7c|8|9|10|10b|11|12|13|14|15|16|17)$" },
         "status": { "type": "string", "enum": ["APPROVED", "RETRY_EXHAUSTED"] },
         "data": { "type": "object" },
         "sources": { "type": "array", "items": { "$ref": "#/definitions/Source" } },
