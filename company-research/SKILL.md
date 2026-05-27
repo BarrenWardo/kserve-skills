@@ -200,7 +200,7 @@ Mode is chosen ONCE at §4. NEVER silently degrade.
 | Failure | Parallel response | Sequential response |
 |---|---|---|
 | Subagent tool missing at §4 detection | Goto §6 (documented fallback) | N/A — already there |
-| Subagent spawn returns error mid-run | **HARD-FAIL:** *"Parallel mode aborted. Subagent tool failed mid-execution. Do NOT degrade to sequential — partial report would be misleading. Re-run when subagent capability is restored."* | N/A |
+| Subagent spawn returns error mid-run | Retry up to 3× with 10s backoff. If all 3 fail: **HARD-FAIL:** *"Parallel mode aborted. Subagent tool failed mid-execution. Do NOT degrade to sequential — partial report would be misleading. Re-run when subagent capability is restored."* | N/A |
 | Wave coordinator does not return within wall-clock backstop | **HARD-FAIL** (same message) | N/A |
 | Worker exceeds per-Worker no-progress (2 min) OR total wall-clock (8 min) | Kill Worker, mark RETRY_EXHAUSTED | N/A |
 | Worker output malformed after 2 Checker retries | `RETRY_EXHAUSTED`, run continues, footer notes gap | Same |
