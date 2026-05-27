@@ -3,7 +3,11 @@ name: company-research
 description: >
   Deep BD-grade research report on any target company — financials, leadership, hiring, tech stack,
   competitors, outsourcing exposure, KServe service fit, ICP score, and BD briefing.
-  Triggers on phrases like "research <company>", "deep dive on <company>", "BD intel on <company>".
+  Triggers on any BD context where a company name is dropped — even without an explicit "research"
+  request. "Look up [company]", "check out [company]", "who should I call at [company]",
+  "what do we know about [company]", "get me a profile on [company]", or simply naming a company
+  while discussing a prospect, outreach plan, or account intelligence. If the context is
+  prospecting, pre-call prep, or finding outsourcing clients — trigger immediately.
 ---
 
 # §1 KServe Context
