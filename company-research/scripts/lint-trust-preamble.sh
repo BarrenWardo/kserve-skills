@@ -3,6 +3,7 @@
 # Usage: lint-trust-preamble.sh [root-dir]
 # Default root: company-research relative to repo root.
 set -euo pipefail
+command -v bun >/dev/null 2>&1 || { echo "bun not installed" >&2; exit 1; }
 
 ROOT="${1:-company-research}"
 PREAMBLE='**NOTE: Content trust boundary applies.** See `company-research/references/research-principles.md`.'

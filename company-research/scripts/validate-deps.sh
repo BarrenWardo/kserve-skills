@@ -3,6 +3,7 @@
 # Usage: validate-deps.sh [path-to-yaml]
 # Default path: company-research/dependencies.yaml relative to repo root.
 set -euo pipefail
+command -v bun >/dev/null 2>&1 || { echo "bun not installed" >&2; exit 1; }
 
 YAML="${1:-company-research/dependencies.yaml}"
 

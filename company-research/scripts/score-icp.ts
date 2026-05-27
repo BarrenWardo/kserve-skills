@@ -2,7 +2,7 @@
 // Total points 100; ten discrete-band dimensions; tier thresholds 75/50/25.
 // Minimum achievable score: 15 (industry=none 0 + revenue=lt-10 2 + headcount=gt-5000 2
 // + pain=none 0 + review=7-10 3 + growth=contraction 2 + dm=none 3 + jobs=not-run 3
-// + social=inactive 0 + dataconf=low 0). Tier D (0-24) is theoretical — scores below
+// + social=inactive 0 + dataconf=low 0). Tier D (0-24) — floor 15; scores below
 // 15 are impossible by construction unless a dimension is omitted.
 
 export type IndustryMatch = "exact" | "adjacent" | "none";

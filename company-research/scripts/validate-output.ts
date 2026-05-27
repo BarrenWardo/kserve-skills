@@ -1,6 +1,6 @@
 import Ajv, { type ErrorObject } from "ajv";
 import addFormats from "ajv-formats";
-import registry from "../output-schemas.json" assert { type: "json" };
+import registry from "../output-schemas.json" with { type: "json" };
 
 const ajv = new Ajv({ allErrors: true, strict: false });
 addFormats(ajv);
