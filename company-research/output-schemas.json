@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "company-research/output-schemas.json",
+  "title": "Company Research — Step Output Schema Registry (INTERNAL)",
+  "description": "Internal contract between parent SKILL.md, wave coordinators, and Workers. NOT consumed by cold-email or any sibling skill. Sibling skills parse rendered Markdown defensively.",
+  "definitions": {
+    "Source": {
+      "type": "object",
+      "required": ["url", "title", "tier", "accessed"],
+      "properties": {
+        "url": { "type": "string", "format": "uri" },
+        "title": { "type": "string", "minLength": 1 },
+        "tier": { "type": "integer", "enum": [1, 2, 3] },
+        "accessed": { "type": "string", "format": "date" }
+      },
+      "additionalProperties": false
+    },
+    "Envelope": {
+      "type": "object",
+      "required": ["step", "status", "data", "sources", "confidence"],
+      "properties": {
+        "step": { "type": "string", "pattern": "^step-(2|3|4|5|6|6b|7|7b|7c|8|9|10|10b|11|12|13|14|15|16|17)$" },
+        "status": { "type": "string", "enum": ["APPROVED", "RETRY_EXHAUSTED"] },
+        "data": { "type": "object" },
+        "sources": { "type": "array", "items": { "$ref": "#/definitions/Source" } },
+        "confidence": { "type": "string", "enum": ["high", "medium", "low"] },
+        "notes": { "type": "string" },
+        "notes_meta": {
+          "type": "object",
+          "properties": {
+            "sanitized": { "type": "boolean" },
+            "sanitized_patterns": { "type": "array", "items": { "type": "string" } }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "schemas": {
+    "step-2": { "type": "object", "required": ["industry", "subindustry", "services_offered"], "properties": { "industry": { "type": "string" }, "subindustry": { "type": "string" }, "services_offered": { "type": "array", "items": { "type": "string" } }, "bd_framing": { "type": "string" } } },
+    "step-3": { "type": "object", "required": ["turnover_inr_crores", "year", "source_type"], "properties": { "turnover_inr_crores": { "type": ["number", "null"] }, "year": { "type": ["integer", "null"] }, "source_type": { "type": "string", "enum": ["audited", "estimated", "reported", "unknown"] }, "currency_original": { "type": "string" } } },
+    "step-4": { "type": "object", "required": ["city", "country"], "properties": { "city": { "type": "string" }, "country": { "type": "string" }, "address": { "type": ["string", "null"] }, "region": { "type": ["string", "null"] } } },
+    "step-5": { "type": "object", "required": ["years_in_existence", "founded_year"], "properties": { "years_in_existence": { "type": ["integer", "null"] }, "founded_year": { "type": ["integer", "null"] } } },
+    "step-6": { "type": "object", "required": ["directors"], "properties": { "directors": { "type": "array", "items": { "type": "object", "required": ["name", "role"], "properties": { "name": { "type": "string" }, "role": { "type": "string" }, "linkedin": { "type": ["string", "null"] }, "tenure": { "type": ["string", "null"] } } } } } },
+    "step-6b": { "type": "object", "required": ["dossiers"], "properties": { "dossiers": { "type": "array", "items": { "type": "object", "required": ["name", "role", "background"], "properties": { "name": { "type": "string" }, "role": { "type": "string" }, "background": { "type": "string" }, "outreach_angle": { "type": "string" }, "linkedin": { "type": ["string", "null"] } } } } } },
+    "step-7": { "type": "object", "required": ["branches"], "properties": { "branches": { "type": "array", "items": { "type": "object", "required": ["city", "country"], "properties": { "city": { "type": "string" }, "country": { "type": "string" }, "type": { "type": "string" } } } } } },
+    "step-7b": { "type": "object", "required": ["open_roles_count", "hiring_signals"], "properties": { "open_roles_count": { "type": "integer" }, "hiring_signals": { "type": "array", "items": { "type": "string" } }, "key_roles": { "type": "array", "items": { "type": "string" } } } },
+    "step-7c": { "type": "object", "required": ["stack"], "properties": { "stack": { "type": "array", "items": { "type": "object", "required": ["technology", "category"], "properties": { "technology": { "type": "string" }, "category": { "type": "string" }, "evidence": { "type": "string" } } } } } },
+    "step-8": { "type": "object", "required": ["product_review", "service_review", "employee_review", "general_review", "review_handling"], "properties": { "product_review": { "type": "object" }, "service_review": { "type": "object" }, "employee_review": { "type": "object" }, "general_review": { "type": "object" }, "review_handling": { "type": "object" } } },
+    "step-9": { "type": "object", "required": ["overall_rating", "justification"], "properties": { "overall_rating": { "type": "number", "minimum": 0, "maximum": 10 }, "justification": { "type": "string" } } },
+    "step-10": { "type": "object", "required": ["fit_summary", "fit_services"], "properties": { "fit_summary": { "type": "string" }, "fit_services": { "type": "array", "items": { "type": "object", "required": ["service", "rationale"], "properties": { "service": { "type": "string" }, "rationale": { "type": "string" } } } } } },
+    "step-10b": { "type": "object", "required": ["score", "tier", "breakdown"], "properties": { "score": { "type": "number", "minimum": 0, "maximum": 100 }, "tier": { "type": "string", "enum": ["A", "B", "C", "D"] }, "breakdown": { "type": "object" } } },
+    "step-11": { "type": "object", "required": ["customer_care_number"], "properties": { "customer_care_number": { "type": ["string", "null"] }, "support_email": { "type": ["string", "null"] }, "support_hours": { "type": ["string", "null"] } } },
+    "step-12": { "type": "object", "required": ["social_media"], "properties": { "social_media": { "type": "array", "items": { "type": "object", "required": ["platform", "url"], "properties": { "platform": { "type": "string" }, "url": { "type": "string" }, "followers": { "type": ["integer", "null"] } } } } } },
+    "step-13": { "type": "object", "required": ["tracxn_url"], "properties": { "tracxn_url": { "type": ["string", "null"] }, "summary": { "type": "string" } } },
+    "step-14": { "type": "object", "required": ["events"], "properties": { "events": { "type": "array", "items": { "type": "object", "required": ["category", "summary", "date"], "properties": { "category": { "type": "string", "enum": ["m&a", "funding", "legal", "partnership"] }, "summary": { "type": "string" }, "date": { "type": "string" } } } } } },
+    "step-15": { "type": "object", "required": ["briefing"], "properties": { "briefing": { "type": "string" }, "talking_points": { "type": "array", "items": { "type": "string" } }, "warmup_angles": { "type": "array", "items": { "type": "string" } } } },
+    "step-16": { "type": "object", "required": ["vendors_detected"], "properties": { "vendors_detected": { "type": "array", "items": { "type": "object", "required": ["vendor", "service"], "properties": { "vendor": { "type": "string" }, "service": { "type": "string" }, "evidence": { "type": "string" } } } } } },
+    "step-17": { "type": "object", "required": ["competitors"], "properties": { "competitors": { "type": "array", "items": { "type": "object", "required": ["name", "rationale"], "properties": { "name": { "type": "string" }, "rationale": { "type": "string" } } } } } }
+  }
+}
