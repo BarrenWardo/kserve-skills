@@ -2,9 +2,9 @@
 name: company-research-wave-3-coordinator
 description: >
   Internal wave coordinator for company-research. DO NOT invoke directly. Spawned by the
-  parent SKILL.md after Wave 2 returns. Spawns step-10 and step-10b in parallel, then
-  step-15 after both complete, runs the Checker loop, then invokes Sanitizer gate #2
-  before returning to parent.
+  parent SKILL.md after Wave 2 returns. Spawns step-10 in Phase 1, then step-10b + step-15
+  in parallel in Phase 2, runs the Checker loop, then invokes Sanitizer gate #2 before
+  returning to parent.
 ---
 
 # Wave 3 Coordinator
@@ -14,12 +14,12 @@ description: >
 | Step ID  | File path                                                       | depends_on                                                                          |
 |----------|-----------------------------------------------------------------|-------------------------------------------------------------------------------------|
 | step-10  | company-research/wave3/step10-kserve-services-fit/SKILL.md      | step-2, step-7c, step-16                                                            |
-| step-10b | company-research/wave3/step10b-icp-score/SKILL.md               | step-2, step-3, step-5, step-7, step-7b, step-9, step-14                            |
+| step-10b | company-research/wave3/step10b-icp-score/SKILL.md               | step-2, step-3, step-5, step-7, step-7b, step-9, step-10, step-14                            |
 | step-15  | company-research/wave3/step15-bd-intelligence-briefing/SKILL.md | step-2, step-3, step-6b, step-8, step-9, step-10, step-10b, step-14, step-16, step-17 |
 
-## Spawn — Phase 1 (step-10 + step-10b)
+## Spawn — Phase 1 (step-10)
 
-For each of step-10 and step-10b, spawn a Worker subagent with this prompt (substitute `<step-file-path>` and `<prior-envelopes-json>`; the parent passes the depended-on Wave 1 + Wave 2 envelopes inline):
+Spawn step-10 with this prompt (substitute `<step-file-path>` and `<prior-envelopes-json>`; the parent passes the depended-on Wave 1 + Wave 2 envelopes inline):
 
 ```
 You are MODE: PARALLEL. Execute the step instructions at <step-file-path>.
@@ -37,11 +37,11 @@ Do NOT signal completion until your envelope passes
 `bun run company-research/scripts/validate-output.ts <your-envelope.json>`.
 ```
 
-Wait for both step-10 and step-10b to reach terminal status before proceeding to Phase 2.
+Wait for step-10 to reach terminal status before proceeding to Phase 2.
 
-## Spawn — Phase 2 (step-15)
+## Spawn — Phase 2 (step-10b + step-15)
 
-After step-10 and step-10b both have terminal status, spawn step-15 with the same prompt template. The prior-envelopes-json now includes step-10 and step-10b outputs.
+After step-10 has terminal status, spawn step-10b and step-15 in parallel with the same prompt template. The prior-envelopes-json now includes step-10 outputs.
 
 ## Checker loop
 

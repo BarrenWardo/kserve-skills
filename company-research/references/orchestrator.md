@@ -79,10 +79,6 @@ Per run (across all waves):
 - **0–5 RETRY_EXHAUSTED:** Run continues. Report renders with DATA QUALITY footer noting each gap.
 - **>5 RETRY_EXHAUSTED:** **HARD-FAIL** with message: *"Preliminary Report — too many data gaps (N steps exhausted retries). Do not use for BD outreach without manual review."* Render whatever was collected, prepend the warning, mark report `PRELIMINARY`.
 
-## Mode asymmetry
-
-The ICP score (step-10b) differs between modes: in PARALLEL mode, `pain_point_evidence` defaults to 0 because step-10 runs concurrently. In SEQUENTIAL mode, step-10 data is available and `pain_point_evidence` contributes its full 15 points. The operating mode is noted in the report metadata. Do not compare ICP scores across modes.
-
 ## State persistence and resume
 
 To prevent re-running Sanitizer over non-deterministic web content after a crash, partial state is persisted to disk and **explicitly re-claimed by the user** on the next run — no silent auto-resume.

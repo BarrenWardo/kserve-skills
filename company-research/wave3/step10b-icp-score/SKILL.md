@@ -14,9 +14,9 @@ description: >
 
 ## Inputs
 
-Outputs from Steps 2–14 (all prior approved research). ICP dimensions draw primarily from Steps 10, 12, and 14.
+Outputs from Steps 2–10, 12, and 14 (all prior approved research). ICP dimensions draw from Steps 2, 3, 6, 7, 7B, 9, 10, 12, and 14.
 
-**Depends on:** Steps 2–14. In PARALLEL mode, run this step alongside Worker 10 (Wave 3) — but only after the Sanitizer gate is complete. In SEQUENTIAL mode, run after Step 10 is approved.
+**Depends on:** Steps 2–10, 12, 14. In PARALLEL mode, this step runs in Wave 3 Phase 2 **after** step-10 completes. In SEQUENTIAL mode, run after Step 10 is approved.
 
 **Do not run new web searches.** Use only data from prior approved steps.
 
@@ -40,8 +40,6 @@ Compute a scored Ideal Customer Profile rating (0–100) for this company as a K
 | Data confidence | Average confidence across Steps 2–9 (Step DATA QUALITY tally) | 5 | Mostly HIGH: 5 · Mixed: 3 · Mostly LOW/MED: 0 |
 
 **Total: 100 points**
-
-**Mode asymmetry:** In PARALLEL mode, `pain_point_evidence` defaults to 0 (step-10 runs concurrently). In SEQUENTIAL mode, step-10 data is available and `pain_point_evidence` contributes its full 15 points. A company scored in PARALLEL mode will show 0–15 fewer points than the same company scored in SEQUENTIAL mode. The mode is noted in report metadata.
 
 **Tier thresholds (visible labels):**
 - **75–100 — Priority Tier 1:** Assign senior AE; outreach within 48 hours
