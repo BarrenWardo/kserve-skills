@@ -122,6 +122,8 @@ Invoke `bun run company-research/scripts/format-report.ts <company> <envelopes.j
 # §6 SEQUENTIAL MODE
 
 Three phases with explicit checkpoints. The main agent itself plays Worker + Checker + Sanitizer + Orchestrator roles inline. No subagents.
+Estimated runtime: 20–35 min depending on search complexity (≈1 min per step + synthesis).
+Progress updates at each CHECKPOINT (A, B, C) and after every chunk within Phase B.
 
 ## Phase A — Setup (2 reads)
 
