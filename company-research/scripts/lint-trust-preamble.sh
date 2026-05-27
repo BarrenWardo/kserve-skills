@@ -23,7 +23,8 @@ while IFS= read -r -d '' file; do
 done < <(find "$ROOT" -type f -path '*/wave*/step*/SKILL.md' -print0)
 
 if [[ "$checked" -eq 0 ]]; then
-  echo "WARN: no step SKILL.md files found under $ROOT" >&2
+  echo "FAIL: no step SKILL.md files found under $ROOT (glob may be too narrow)" >&2
+  exit 1
 fi
 
 if [[ "$fails" -gt 0 ]]; then
