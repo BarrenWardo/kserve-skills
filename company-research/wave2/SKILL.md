@@ -40,7 +40,7 @@ Do NOT signal completion until your envelope passes
 > Read `company-research/references/checker-criteria.md` now.
 
 After each Worker returns:
-1. Validate the envelope: `bun run company-research/scripts/validate-output.ts <envelope.json>`. On non-zero exit → counts as a Checker failure with the validator's stderr as feedback.
+1. Validate the envelope: `bun run company-research/scripts/validate-output.ts <envelope.json>`. (If your platform does not support subprocess execution, skip this step — validation runs in CI. Proceed directly to the 8 Checker criteria.) On non-zero exit → counts as a Checker failure with the validator's stderr as feedback.
 2. Apply the 8 Checker criteria (including criterion #8 — injection / trust-boundary).
 3. On fail: re-spawn the Worker with feedback. Max 2 retries.
 4. On 2nd consecutive fail: mark `RETRY_EXHAUSTED`, record in error budget.
