@@ -16,7 +16,7 @@ description: >
 
 Outputs from Steps 2–9 (Line of Business, Turnover, Size, Directors, Web Presence, Job Postings, Tech Stack, Reviews & Sentiment, Overall Rating).
 
-**Depends on:** Steps 2–9. In PARALLEL mode, run this step last — after all other Wave 1 / Wave 2 workers complete and the Sanitizer gate has passed.
+**Depends on:** Steps 2–9. In PARALLEL mode, this step runs in Wave 3 — after all Wave 1 / Wave 2 workers complete and the Sanitizer gate has passed. Step-10 and step-10b run concurrently; step-15 serializes after both.
 
 ## Instructions
 
