@@ -57,6 +57,7 @@ export function formatReport({ company, companyWebsite, researchDate, verificati
       lines.push("**Security events:** None");
     }
     lines.push("**Per-step confidence:**");
+    // Keep in sync with output-schemas.json step definitions. Add new steps here when schema changes.
     const stepOrder = ["step-2","step-3","step-4","step-5","step-6","step-6b","step-7","step-7b","step-7c","step-8","step-9","step-10","step-10b","step-11","step-12","step-13","step-14","step-15","step-16","step-17"];
     const stepLabels: Record<string, string> = {
       "step-2": "Line of Business", "step-3": "Turnover", "step-4": "Head Office", "step-5": "Years in Existence",

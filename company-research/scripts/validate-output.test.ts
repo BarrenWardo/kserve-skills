@@ -112,4 +112,24 @@ describe("validateEnvelope", () => {
     };
     expect(validateEnvelope(valid).ok).toBe(true);
   });
+
+  test("accepts step-5 envelope without optional new fields", () => {
+    const env = { step: "step-5", status: "APPROVED", data: { years_in_existence: 12, founded_year: 2014 }, sources: [{ url: "https://example.com", title: "MCA", tier: 1, accessed: "2026-05-22" }], confidence: "HIGH" };
+    expect(validateEnvelope(env).ok).toBe(true);
+  });
+
+  test("accepts step-6 envelope without optional din", () => {
+    const env = { step: "step-6", status: "APPROVED", data: { directors: [{ name: "A Sharma", role: "MD" }] }, sources: [{ url: "https://example.com", title: "MCA", tier: 1, accessed: "2026-05-22" }], confidence: "HIGH" };
+    expect(validateEnvelope(env).ok).toBe(true);
+  });
+
+  test("accepts step-11 envelope without optional new fields", () => {
+    const env = { step: "step-11", status: "APPROVED", data: { customer_care_number: "1800-123-456" }, sources: [{ url: "https://example.com", title: "Website", tier: 1, accessed: "2026-05-22" }], confidence: "HIGH" };
+    expect(validateEnvelope(env).ok).toBe(true);
+  });
+
+  test("accepts step-17 envelope without optional competitor fields", () => {
+    const env = { step: "step-17", status: "APPROVED", data: { competitors: [{ name: "Competitor Inc", rationale: "Direct competitor" }] }, sources: [{ url: "https://example.com", title: "Crunchbase", tier: 1, accessed: "2026-05-22" }], confidence: "HIGH" };
+    expect(validateEnvelope(env).ok).toBe(true);
+  });
 });
