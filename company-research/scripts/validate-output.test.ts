@@ -6,7 +6,7 @@ const validStep2 = {
   status: "APPROVED",
   data: { industry: "Retail", subindustry: "E-commerce", services_offered: ["Online sales"] },
   sources: [{ url: "https://example.com", title: "Example", tier: 1, accessed: "2026-05-22" }],
-  confidence: "high",
+  confidence: "HIGH",
 };
 
 describe("validateEnvelope", () => {

@@ -28,7 +28,15 @@ Based on the full research picture, recommend **3–5 services** (not all 8) wit
 **Decision rules:**
 - **HIGH FIT requires at least ONE of:** (a) explicit pain-point evidence in Step 8 reviews/news, (b) open job requisitions in that function found in research, (c) a specific recent event (funding, expansion, leadership change) that makes the service directly timely.
 - **MEDIUM FIT requires at least ONE of:** (a) industry norm (e.g., NBFCs typically need Collection services), (b) company size signals that make the service plausible, (c) absence of an obvious in-house function (e.g., no published customer care number signals underdeveloped CS).
-- **Exclude a service entirely** (do not list it) if the company's size or business model makes it implausible (e.g., a 10-person bootstrapped startup does not need Collection services; a pure B2G company rarely needs Lead Generation).
+- **Exclude a service entirely** (do not list it) if the company's size or business model makes it implausible (e.g., a 10-person bootstrapped startup does not need Collection services).
+- **Collection exclusion rule:** Collection must be excluded for financial product facilitators (consultancies, brokers, agents, introducers) that do not hold a receivables book or loan portfolio. Only include Collection if research confirms the company originates or holds its own loan/receivables book.
+- **AI services fit rules:**
+  - **Low Code AI Integrated CRM** — HIGH FIT: No CRM detected (Step 7C) + 200+ clients or multi-system fragmentation signals. MEDIUM FIT: Generic CRM detected but no CRM-specific job postings.
+  - **Predictive Lead Scoring** — HIGH FIT: B2B company with high enquiry volume and no visible scoring system (NBFC, consultancy, insurer). MEDIUM FIT: B2B company with moderate enquiry volume.
+  - **Conversation VoiceAI Bot** — HIGH FIT: Published support number + lean team signals (6-day week, high call load from reviews) OR multi-language market presence. MEDIUM FIT: Published support number AND employee reviews mention high call load, peak periods, or lean support team.
+  - **Sales Enhancer / CX Enhancer** — HIGH FIT: Employee reviews cite inconsistent training/high attrition; OR customer reviews cite variable service quality. Label as Sales Enhancer if the pain is sales-driven; CX Enhancer if support-driven. MEDIUM FIT: Mixed reviews without clear training/attrition signal.
+  - **WhatsApp Chatbot** — HIGH FIT: WhatsApp Business number detected (Step 11/12) OR Indian consumer/MSME-facing company. MEDIUM FIT: B2C company with visible customer support channel (phone/email) but no WhatsApp presence — gap in mobile-first customer communication.
+  - **Custom Build** — HIGH FIT: Fragmented/legacy tech stack with no commercial fit (Step 7C); niche industry; bespoke tooling mentioned in job postings. MEDIUM FIT: Proprietary in-house systems detected that need integration.
 - At the end of the KServe Fit section, add one line: `Excluded: [Service] — [reason] · [Service] — [reason]` (only for excluded services, not all 8).
 
 Format each as: `[Service] — [Fit level] — [Specific evidence from research]`

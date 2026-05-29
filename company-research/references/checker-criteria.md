@@ -6,11 +6,13 @@
 |---|---|
 | Data content | At least one data finding is present (not blank, not "TBD") |
 | Source citation | At least one URL or document reference is present |
-| Confidence label | A `high / medium / low` label is present with a source justification |
+| Confidence label | A `HIGH / MED / LOW` label is present with a source justification |
 | Step identifier | Output is clearly attributed to a specific step number |
 
 If any required field is absent: return immediately to Worker with:
 `Schema invalid — missing: [field name(s)]. Resubmit with all required fields present.`
+
+**Confidence label standardization:** Accept only `HIGH`, `MED`, or `LOW` (all caps, exact spelling). Reject any non-standard value (`MEDIUM`, `medium`, `high`, `low`, `Medium`, `High`, etc.) with: `Confidence label invalid — must be HIGH, MED, or LOW (all caps). Received: "[value]".`
 
 Schema rejections do **not** count against the 2-retry budget. The retry budget applies only after schema passes.
 
