@@ -45,7 +45,7 @@ Compute a scored Ideal Customer Profile rating (0–100) for this company as a K
 
 **Social presence fallback:** If posting frequency cannot be determined because the platform login-gates historical posts, use LinkedIn follower count as a proxy: >1,000 LinkedIn followers = 3 pts (not 0). For Instagram or Facebook consumer accounts: do not apply this fallback — use 0 pts when posting frequency is gated. Below 1,000 LinkedIn followers = 0 pts.
 
-**Checker enforcement:** The Checker must reject envelopes where any dimension has a bare score without an inline reason. Each dimension entry must include: `[X/Y] — [reason based on evidence from prior steps]`. Reject envelopes with output like `Industry match: 15/15` without a reason.
+**Checker enforcement:** This enforcement applies to the **markdown output** format of Step 10B, not to the JSON envelope breakdown field. The Checker reads the rendered markdown and rejects bare numbers without reasoning. Each dimension line in the output must include: `[X/Y] — [reason based on evidence from prior steps]`. Reject output like `Industry match: 15/15` without a reason.
 
 **Total: 100 points**
 

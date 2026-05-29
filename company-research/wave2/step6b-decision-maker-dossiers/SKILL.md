@@ -54,7 +54,7 @@ Search for the director's presence beyond LinkedIn:
 
 ### Silent Partner Detection (M8)
 
-If a ★-flagged director has zero web footprint (no LinkedIn, no news, no company bio beyond the MCA director record), characterize them as: `Likely silent/nominee partner — no public decision-making footprint.` Include a note redirecting outreach: `Direct outreach to [primary operational director name] — the decision-maker for BPO vendor selection.`
+If a ★-flagged director has zero web footprint across all sources checked in Other Platform OSINT (LinkedIn, Twitter/X, YouTube, news aggregators, conference speaker profiles), characterize them as: `Likely silent/nominee partner — no public decision-making footprint.` Include a note redirecting outreach: `Direct outreach to [primary operational director name] — the decision-maker for BPO vendor selection.`
 
 ### Dossier Assembly
 
@@ -64,7 +64,7 @@ For each ★-flagged director, produce:
 [Director name] — [role]
   LinkedIn: [URL / Not publicly accessible]
   Background: [Previous 2-3 companies/roles. Duration. Notable career inflection.]
-  Post themes: [2-3 recurring themes / Login-gated / Not accessible]
+  Post themes: [2-3 recurring themes / 1 post found — theme: X / Login-gated / Not accessible]
   Personal interests: [hobbies, causes, sports, civic roles / Not visible]
   Communication style: [classification] — [outreach tone implication]
   Recent activity hook: [Specific post/engagement from last 90 days / No recent public activity]
@@ -86,7 +86,7 @@ See `schemas.step-6b` in `company-research/output-schemas.json`. Fields summariz
 [Director name] — [role]
   LinkedIn: [URL / Not publicly accessible]
   Background: [Previous 2-3 companies/roles. Duration. Notable career inflection.]
-  Post themes: [2-3 recurring themes / Login-gated / Not accessible]
+  Post themes: [2-3 recurring themes / 1 post found — theme: X / Login-gated / Not accessible]
   Personal interests: [hobbies, causes, sports, civic roles / Not visible]
   Communication style: [classification] — [outreach tone implication]
   Recent activity hook: [Specific post/engagement from last 90 days / No recent public activity]

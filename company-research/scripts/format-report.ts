@@ -23,13 +23,7 @@ export function formatReport({ company, companyWebsite, researchDate, verificati
   const today = new Date();
   const localDate = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
   out = out.replaceAll("{{research_date}}", researchDate ?? localDate);
-  if (verification) {
-    for (const [key, val] of Object.entries(verification)) {
-      out = out.replaceAll(`{{verification.${key}}}`, val);
-    }
-  }
-
-  // Substitute {{step-N.field}} placeholders
+  // Substitute {{step-N.field}} placeholders (before verification to prevent double-substitution)
   out = out.replace(/\{\{(step-[0-9a-z]+)\.([a-zA-Z0-9_]+)\}\}/g, (_match, stepId, field) => {
     const env = envelopes.find((e) => e.step === stepId);
     if (!env) return `[missing: ${stepId}]`;
@@ -37,6 +31,13 @@ export function formatReport({ company, companyWebsite, researchDate, verificati
     if (v === undefined || v === null) return `[missing: ${stepId}.${field}]`;
     return Array.isArray(v) ? (v.length > 0 && typeof v[0] === "object" ? JSON.stringify(v) : v.join(", ")) : String(v);
   });
+
+  // Substitute {{verification.*}} placeholders (after step placeholders to prevent double-substitution)
+  if (verification) {
+    for (const [key, val] of Object.entries(verification)) {
+      out = out.replaceAll(`{{verification.${key}}}`, val);
+    }
+  }
 
   // DATA QUALITY footer
   if (out.includes("{{data_quality_footer}}")) {
@@ -68,7 +69,7 @@ export function formatReport({ company, companyWebsite, researchDate, verificati
       const env = envelopes.find((e) => e.step === id);
       if (!env) continue;
       const label = stepLabels[id] ?? id;
-      const conf = env.confidence.toUpperCase();
+      const conf = env.confidence;
       const status = env.status === "RETRY_EXHAUSTED" ? " ⚠️" : "";
       lines.push(`  \`${id}\` ${label}: ${conf}${status}`);
     }
