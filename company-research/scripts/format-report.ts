@@ -78,7 +78,7 @@ export function formatReport({ company, companyWebsite, researchDate, verificati
     const total = envelopes.length;
     const tallyStr = Object.entries(tally)
       .sort((a, b) => b[1] - a[1])
-      .map(([level, count]) => `${count}/${total} ${level.toUpperCase()}`)
+      .map(([level, count]) => `${count}/${total} ${level}`)
       .join(" · ");
     lines.push(`**Confidence tally:** ${tallyStr}`);
     const allDates = envelopes.flatMap((e) => e.sources.map((s) => s.accessed)).filter(Boolean).sort();

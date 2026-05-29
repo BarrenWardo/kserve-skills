@@ -56,6 +56,7 @@ describe("formatReport", () => {
     const out = formatReport({ company: "Acme", envelopes: minimalEnvelopes, template: `Website: {{company_website}}` });
     expect(out).toContain("Website: ");
     expect(out).not.toContain("{{company_website}}");
+    expect(out).toContain("Website: "); // empty-string replacement is intentional
   });
 
   test("substitutes {{verification.*}} placeholders", () => {

@@ -72,4 +72,44 @@ describe("validateEnvelope", () => {
     const result = validateEnvelope(validStep6b);
     expect(result.ok).toBe(true);
   });
+
+  test("accepts a well-formed step-5 envelope with new fields", () => {
+    const valid = {
+      step: "step-5", status: "APPROVED",
+      data: { years_in_existence: 12, founded_year: 2014, cin: "U72200MH2014PTC123456", roc: "ROC Mumbai", company_type: "Private Limited" },
+      sources: [{ url: "https://example.com", title: "MCA", tier: 1, accessed: "2026-05-22" }],
+      confidence: "HIGH",
+    };
+    expect(validateEnvelope(valid).ok).toBe(true);
+  });
+
+  test("accepts a well-formed step-6 envelope with din", () => {
+    const valid = {
+      step: "step-6", status: "APPROVED",
+      data: { directors: [{ name: "A Sharma", role: "MD", din: "01234567" }] },
+      sources: [{ url: "https://example.com", title: "MCA", tier: 1, accessed: "2026-05-22" }],
+      confidence: "HIGH",
+    };
+    expect(validateEnvelope(valid).ok).toBe(true);
+  });
+
+  test("accepts a well-formed step-11 envelope with new fields", () => {
+    const valid = {
+      step: "step-11", status: "APPROVED",
+      data: { customer_care_number: "1800-123-456", support_email: "help@example.com", support_hours: "9-6", whatsapp_business: "+911234567890", contact_form_url: "https://example.com/contact" },
+      sources: [{ url: "https://example.com", title: "Website", tier: 1, accessed: "2026-05-22" }],
+      confidence: "HIGH",
+    };
+    expect(validateEnvelope(valid).ok).toBe(true);
+  });
+
+  test("accepts a well-formed step-17 envelope with competitor fields", () => {
+    const valid = {
+      step: "step-17", status: "APPROVED",
+      data: { competitors: [{ name: "Competitor Inc", rationale: "Direct competitor in BFSI", founded_year: 2010, headcount: "500-1000", linkedin_followers: 5000, funding_stage: "Series C" }] },
+      sources: [{ url: "https://example.com", title: "Crunchbase", tier: 1, accessed: "2026-05-22" }],
+      confidence: "HIGH",
+    };
+    expect(validateEnvelope(valid).ok).toBe(true);
+  });
 });

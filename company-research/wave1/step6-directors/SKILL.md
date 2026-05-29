@@ -32,7 +32,7 @@ This protects downstream Step 6B, Step 15, and any renderer or sibling skill fro
 
 ## Instructions
 
-Pull current directors from MCA. For each: Full name · Designation (MD, Director, Independent Director, etc.) · DIN (Director Identification Number — if not found on MCA, write `DIN: Not found`).
+Pull current directors from MCA (via Tofler/Zauba Corp). For each: Full name · Designation (MD, Director, Independent Director, etc.) · DIN (Director Identification Number — MCA via Tofler/Zauba Corp is the only authoritative source. If not found there, write `DIN: Not found` — do not infer from other sources).
 
 **Past/ceased directors:** Also collect past directors with their cessation dates (from MCA filing history via Tofler/Zauba Corp). List them in a separate section. Flag any cessation within the last 2 years from the research date (today's date when research is conducted) as a BD signal: `⚠️ Recent cessation: [Name] — [Designation] — ceased [date] — [BD implication, e.g., "may indicate leadership instability or restructuring"]`.
 

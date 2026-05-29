@@ -19,7 +19,7 @@ None.
 Search for any recent (last 12 months preferred): acquisitions · being acquired · mergers · major investment rounds · PE/VC backing changes.
 
 **Additional searches:**
-- **Government contracts (mandatory for ALL company types):** Search `gem.gov.in "[company name]"` — note if they are an active GeM (Government e-Marketplace) supplier. This check is mandatory for every company regardless of type. Never write "Not checked" or omit this search. If no results found on GeM, write `GeM supplier: Not found on gem.gov.in.` This signals compliance maturity, longer procurement timelines, and that the company operates in regulated environments. BD implication: open with compliance and documentation-quality credentials.
+- **Government contracts (mandatory for ALL company types):** Search gem.gov.in by: (1) registered company name, (2) CIN from Step 5 if available. Note which method returned the result. Report if they are an active GeM (Government e-Marketplace) supplier. This check is mandatory for every company regardless of type. Never write "Not checked" or omit this search. If no results found on GeM, write `GeM supplier: Not found on gem.gov.in.` This signals compliance maturity, longer procurement timelines, and that the company operates in regulated environments. BD implication: open with compliance and documentation-quality credentials.
 - **PE ownership depth:** If Tracxn or Crunchbase shows PE backing, search for the PE firm's portfolio page. Note: PE firm name · stake held (majority/minority/not specified) · fund vintage year. **Fund vintage BD signal:** A PE fund 6+ years into a typical 10-year cycle is approaching exit horizon — cost reduction programs are usually underway; outsourcing is a direct lever.
 
 BD signals:

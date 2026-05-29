@@ -54,7 +54,11 @@ Search for the director's presence beyond LinkedIn:
 
 ### Silent Partner Detection (M8)
 
+A login-gated LinkedIn profile is NOT the same as no profile. If LinkedIn is login-gated, check all Other Platform OSINT sources before classifying as silent partner. Only classify as silent/nominee if gated AND no Twitter/X/YouTube/news/conference results found.
+
 If a ★-flagged director has zero web footprint across all sources checked in Other Platform OSINT (LinkedIn, Twitter/X, YouTube, news aggregators, conference speaker profiles), characterize them as: `Likely silent/nominee partner — no public decision-making footprint.` Include a note redirecting outreach: `Direct outreach to [primary operational director name] — the decision-maker for BPO vendor selection.`
+
+If Silent Partner criteria are met, that classification takes precedence over the communication style taxonomy (i.e., do not assign a communication style — mark as `Silent/nominee partner` instead).
 
 ### Dossier Assembly
 
