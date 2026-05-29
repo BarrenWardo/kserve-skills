@@ -1,0 +1,14 @@
+# Run-state cache directory.
+#
+# At runtime the orchestrator writes one file per research run:
+#   <run-id>.json
+#
+# Each cache file holds sanitized step envelopes plus sanitizer-gate
+# completion markers (gate #1 + gate #2) so that an interrupted run can
+# resume without re-running already-approved steps.
+#
+# Schema and lifecycle: see company-research/references/orchestrator.md
+# §State persistence.
+#
+# This .gitkeep exists only so the directory is tracked by git; do not
+# put real cache data here.
