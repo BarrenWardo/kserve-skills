@@ -34,6 +34,8 @@ This protects downstream Step 6B, Step 15, and any renderer or sibling skill fro
 
 Pull current directors from MCA. For each: Full name · Designation (MD, Director, Independent Director, etc.) · DIN (Director Identification Number).
 
+**Past/ceased directors:** Also collect past directors with their cessation dates (from MCA filing history via Tofler/Zauba Corp). List them in a separate section. Flag any cessation within the last 2 years as a BD signal: `⚠️ Recent cessation: [Name] — [Designation] — ceased [date] — [BD implication, e.g., "may indicate leadership instability or restructuring"]`.
+
 For BD outreach, flag directors likely to be decision-makers for outsourcing: MD, COO, CFO, VP Operations. Mark each with a star (★) to distinguish from board/independent directors.
 
 **LinkedIn lookup (for ★-flagged directors only):** Search `"[Full name]" "[Company name]" LinkedIn` for each BD-relevant director. Record:

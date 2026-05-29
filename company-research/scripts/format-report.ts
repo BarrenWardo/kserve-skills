@@ -43,14 +43,31 @@ export function formatReport({ company, envelopes, template, securityEvents }: F
     } else {
       lines.push("**Security events:** None");
     }
+    lines.push("**Per-step confidence:**");
+    const stepOrder = ["step-2","step-3","step-4","step-5","step-6","step-7","step-7b","step-7c","step-8","step-9","step-10","step-10b","step-11","step-12","step-13","step-14","step-15","step-16","step-17"];
+    const stepLabels: Record<string, string> = {
+      "step-2": "Line of Business", "step-3": "Turnover", "step-4": "Head Office", "step-5": "Years in Existence",
+      "step-6": "Directors", "step-7": "Branches", "step-7b": "Job Postings", "step-7c": "Tech Stack",
+      "step-8": "Reviews", "step-9": "Overall Rating", "step-10": "KServe Fit", "step-10b": "ICP Score",
+      "step-11": "Customer Care", "step-12": "Social Media", "step-13": "Tracxn", "step-14": "M&A/Legal",
+      "step-15": "BD Briefing", "step-16": "Outsourcing", "step-17": "Competitors"
+    };
+    for (const id of stepOrder) {
+      const env = envelopes.find((e) => e.step === id);
+      if (!env) continue;
+      const label = stepLabels[id] ?? id;
+      const conf = env.confidence.toUpperCase();
+      const status = env.status === "RETRY_EXHAUSTED" ? " ⚠️" : "";
+      lines.push(`  \`${id}\` ${label}: ${conf}${status}`);
+    }
     const tally: Record<string, number> = {};
     envelopes.forEach((e) => { tally[e.confidence] = (tally[e.confidence] || 0) + 1; });
     const total = envelopes.length;
     const tallyStr = Object.entries(tally)
       .sort((a, b) => b[1] - a[1])
       .map(([level, count]) => `${count}/${total} ${level.toUpperCase()}`)
-      .join(" · ");
-    lines.push(`**Overall confidence:** ${tallyStr}`);
+      .join(" · `");
+    lines.push(`**Confidence tally:** ${tallyStr}`);
     const allDates = envelopes.flatMap((e) => e.sources.map((s) => s.accessed)).filter(Boolean).sort();
     lines.push(`**Oldest source:** ${allDates.length > 0 ? allDates[0] : "N/A"}`);
     out = out.replaceAll("{{data_quality_footer}}", lines.join("\n"));

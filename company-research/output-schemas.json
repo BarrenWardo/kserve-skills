@@ -23,7 +23,7 @@
         "status": { "type": "string", "enum": ["APPROVED", "RETRY_EXHAUSTED"] },
         "data": { "type": "object" },
         "sources": { "type": "array", "items": { "$ref": "#/definitions/Source" } },
-        "confidence": { "type": "string", "enum": ["high", "medium", "low"] },
+        "confidence": { "type": "string", "enum": ["HIGH", "MED", "LOW"] },
         "notes": { "type": "string" },
         "notes_meta": {
           "type": "object",

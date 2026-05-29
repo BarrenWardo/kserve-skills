@@ -24,7 +24,7 @@ describe("formatReport", () => {
     const out = formatReport({ company: "Acme", envelopes: minimalEnvelopes, template: `{{data_quality_footer}}` });
     expect(out).toContain("**Data gaps:** None");
     expect(out).toContain("**Security events:** None");
-    expect(out).toContain("**Overall confidence:**");
+    expect(out).toContain("**Confidence tally:**");
   });
 
   test("renders RETRY_EXHAUSTED steps and security events into DATA QUALITY footer", () => {

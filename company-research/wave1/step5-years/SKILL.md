@@ -18,6 +18,13 @@ None.
 
 Find the incorporation / founding year. Calculate age from today.
 
+For Indian-registered companies, additionally collect:
+- **CIN** (Corporate Identification Number)
+- **ROC** (Registrar of Companies jurisdiction, e.g., ROC Mumbai, ROC Delhi)
+- **Company type** (e.g., Private Limited, Public Limited, Limited Liability Partnership, Section 8)
+
+If CIN is not found, note "CIN not publicly available" rather than omitting the field.
+
 ## Output schema
 
 See `schemas.step-5` in `company-research/output-schemas.json`. Fields summarized:
@@ -28,6 +35,7 @@ See `schemas.step-5` in `company-research/output-schemas.json`. Fields summarize
 
 ```
 📅 YEARS IN EXISTENCE
-[Founded XXXX | X years old]
+Founded XXXX | X years old
+CIN: [CIN / Not publicly available] | ROC: [Jurisdiction] | Type: [Company type]
 Source(s): [URL] | Confidence: HIGH/MED/LOW | Source date: YYYY-MM-DD
 ```
